@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no \
+          ssh -o StrictHostKeyChecking=no -A \
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
             set -e
             cd ${{ secrets.DEPLOY_PATH }}
