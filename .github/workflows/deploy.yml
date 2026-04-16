@@ -1,0 +1,50 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "config.yaml"
+      - "docker-compose.yml"
+      - ".github/workflows/deploy.yml"
+
+jobs:
+  deploy:
+    name: Deploy LiteLLM Proxy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy via SSH
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
+            set -e
+            cd ${{ secrets.DEPLOY_PATH }}
+
+            # Pull latest changes
+            git pull origin main
+
+            # Pull latest Docker image
+            docker compose pull
+
+            # Restart containers
+            docker compose up -d --remove-orphans
+
+            # Cleanup unused images
+            docker image prune -f
+
+            echo "Deploy completed successfully"
+          EOF
