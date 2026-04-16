@@ -30,22 +30,14 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no -A \
-              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
-            set -e
-            cd ${{ secrets.DEPLOY_PATH }}
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
+          set -e
+          cd ${{ secrets.DEPLOY_PATH }}
 
-            # Pull latest changes from git
-            git pull origin main
+          git pull origin main
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f
 
-            # Pull latest Docker image
-            docker compose pull
-
-            # Restart containers (config.yaml is mounted, new config is read on restart)
-            docker compose up -d --remove-orphans
-
-            # Cleanup unused images
-            docker image prune -f
-
-            echo "Deploy completed successfully"
+          echo "Deploy completed successfully"
           EOF
