@@ -40,13 +40,13 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-6
     litellm_params:
-      model: openai/glm-5.1
-      api_base: https://opencode.ai/zen/go/v1
+      odel: anthropic/minimax-m2.7
+      api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/minimax-m2.7
+      model: anthropic/minimax-m2.5
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
 
