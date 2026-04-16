@@ -32,10 +32,12 @@ jobs:
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
           set -e
-          echo "Current dir: $(pwd)"
-          echo "Deploy path: ${{ secrets.DEPLOY_PATH }}"
-          ls -la ${{ secrets.DEPLOY_PATH }}/
-          cd ${{ secrets.DEPLOY_PATH }}
-          echo "After cd: $(pwd)"
-          git status
+          cd ${{ vars.DEPLOY_PATH }}
+
+          git pull origin main
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f
+
+          echo "Deploy completed successfully"
           EOF
