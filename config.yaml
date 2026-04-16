@@ -1,0 +1,57 @@
+model_list:
+  # --- Anthropic-native ---
+  - model_name: minimax-m2.7
+    litellm_params:
+      model: anthropic/minimax-m2.7
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_API_KEY
+
+  - model_name: minimax-m2.5
+    litellm_params:
+      model: anthropic/minimax-m2.5
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_API_KEY
+
+  # --- OpenAI-compat ---
+  - model_name: glm-5.1
+    litellm_params:
+      model: openai/glm-5.1
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+
+  - model_name: glm-5
+    litellm_params:
+      model: openai/glm-5
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+
+  - model_name: kimi-k2.5
+    litellm_params:
+      model: openai/kimi-k2.5
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+
+  - model_name: qwen3.6-plus
+    litellm_params:
+      model: openai/qwen3.6-plus
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+
+  # --- Aliases ---
+  - model_name: claude-sonnet-4-5
+    litellm_params:
+      model: anthropic/minimax-m2.7
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_API_KEY
+
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: anthropic/minimax-m2.5
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_API_KEY
+
+litellm_settings:
+  drop_params: true
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
