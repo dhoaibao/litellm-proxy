@@ -13,7 +13,7 @@ jobs:
   deploy:
     name: Deploy LiteLLM Proxy
     runs-on: ubuntu-latest
-    environment: production
+    environment: Hetzner
 
     steps:
       - name: Checkout code
