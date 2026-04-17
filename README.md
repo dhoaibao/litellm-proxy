@@ -19,7 +19,7 @@ These model names are mapped to OpenCode models for compatibility:
 
 | Alias | Maps To |
 | :---- | :------ |
-| `claude-opus-4-6` | `minimax-m2.7` |
+| `claude-opus-4-7` | `minimax-m2.7` |
 | `claude-sonnet-4-6` | `minimax-m2.5` |
 | `claude-haiku-4-5-20251001` | `minimax-m2.5` |
 
