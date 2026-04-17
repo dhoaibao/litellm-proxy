@@ -38,7 +38,7 @@ model_list:
       api_key: os.environ/OPENCODE_API_KEY
 
   # --- Aliases ---
-  - model_name: claude-opus-4-6
+  - model_name: claude-opus-4-7
     litellm_params:
       model: anthropic/minimax-m2.7
       api_base: https://opencode.ai/zen/go
