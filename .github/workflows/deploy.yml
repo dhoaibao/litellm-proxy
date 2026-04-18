@@ -35,7 +35,7 @@ jobs:
           cd ${{ vars.DEPLOY_PATH }}
 
           # Update .env file with secrets
-          mkdir -p .env
+          mkdir -p .env 2>/dev/null || true
           echo 'LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}' > .env
           echo 'OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}' >> .env
 
