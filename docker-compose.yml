@@ -8,6 +8,8 @@ services:
     volumes:
       - ./config.yaml:/app/config.yaml
     command: ["--config", "/app/config.yaml", "--port", "4000"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - OPENCODE_API_KEY=${OPENCODE_API_KEY}
       - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}

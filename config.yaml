@@ -37,16 +37,35 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
 
+  # --- Antigravity Proxy ---
+  - model_name: antigravity/claude-opus-4-6-thinking
+    litellm_params:
+      model: anthropic/claude-opus-4-6-thinking
+      api_base: http://host.docker.internal:8080
+      api_key: dummy
+
+  - model_name: antigravity/claude-sonnet-4-6
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_base: http://host.docker.internal:8080
+      api_key: dummy
+
+  - model_name: antigravity/gemini-3.1-pro-high
+    litellm_params:
+      model: anthropic/gemini-3.1-pro-high
+      api_base: http://host.docker.internal:8080
+      api_key: dummy
+
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/minimax-m2.7
-      api_base: https://opencode.ai/zen/go
-      api_key: os.environ/OPENCODE_API_KEY
+      model: anthropic/claude-opus-4-6-thinking
+      api_base: http://host.docker.internal:8080
+      api_key: dummy
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/minimax-m2.5
+      model: anthropic/minimax-m2.7
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
 

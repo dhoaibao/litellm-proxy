@@ -34,6 +34,11 @@ jobs:
           set -e
           cd ${{ vars.DEPLOY_PATH }}
 
+          # Update .env file with secrets
+          mkdir -p .env
+          echo 'LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}' > .env
+          echo 'OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}' >> .env
+
           git pull origin main
           docker compose pull
           docker compose up -d --remove-orphans
