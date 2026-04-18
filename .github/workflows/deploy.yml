@@ -38,6 +38,7 @@ jobs:
           mkdir -p .env 2>/dev/null || true
           echo 'LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}' > .env
           echo 'OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}' >> .env
+          echo 'ANTIGRAVITY_API_BASE=${{ secrets.ANTIGRAVITY_API_BASE }}' >> .env
 
           git pull origin main
           docker compose pull
