@@ -1,25 +1,35 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai).
+Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and [Antigravity](https://antigravity.ai).
 
 ## Models
 
+### OpenCode Models
+
 | Model Name | Provider | Description |
 | :--------- | :------- | :---------- |
-| `minimax-m2.7` | anthropic | OpenCode minimax-m2.7 |
-| `minimax-m2.5` | anthropic | OpenCode minimax-m2.5 |
-| `glm-5.1` | openai | OpenCode GLM-5.1 |
-| `glm-5` | openai | OpenCode GLM-5 |
-| `kimi-k2.5` | openai | OpenCode Kimi K2.5 |
-| `qwen3.6-plus` | openai | OpenCode Qwen 3.6+ |
+| `minimax-m2.7` | anthropic | MiniMax M2.7 |
+| `minimax-m2.5` | anthropic | MiniMax M2.5 |
+| `glm-5.1` | openai | GLM-5.1 |
+| `glm-5` | openai | GLM-5 |
+| `kimi-k2.5` | openai | Kimi K2.5 |
+| `qwen3.6-plus` | openai | Qwen 3.6+ |
+
+### Antigravity Proxy Models
+
+| Model Name | Provider | Description |
+| :--------- | :------- | :---------- |
+| `antigravity/claude-opus-4-6-thinking` | anthropic | Claude Opus 4.6 with thinking |
+| `antigravity/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 |
+| `antigravity/gemini-3.1-pro-high` | anthropic | Gemini 3.1 Pro High |
 
 ### Aliases
 
-These model names are mapped to OpenCode models for compatibility:
+These model names are mapped for Claude Code compatibility:
 
 | Alias | Maps To |
 | :---- | :------ |
-| `claude-opus-4-7` | `minimax-m2.7` |
+| `claude-opus-4-7` | `antigravity/claude-opus-4-6-thinking` |
 | `claude-sonnet-4-6` | `minimax-m2.5` |
 | `claude-haiku-4-5-20251001` | `minimax-m2.5` |
 
@@ -35,8 +45,9 @@ cp .env.example .env
 Required variables:
 
 ```env
-LITELLM_MASTER_KEY=your-master-key        # Protects the proxy endpoint
-OPENCODE_API_KEY=your-opencode-api-key    # OpenCode AI API key
+LITELLM_MASTER_KEY=your-master-key              # Protects the proxy endpoint
+OPENCODE_API_KEY=your-opencode-api-key          # OpenCode AI API key
+ANTIGRAVITY_API_BASE=your-antigravity-api-proxy-url  # Antigravity API proxy URL
 ```
 
 ### 2. Launch with Docker Compose
