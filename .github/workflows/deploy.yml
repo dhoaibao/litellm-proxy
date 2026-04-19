@@ -43,6 +43,9 @@ jobs:
           echo 'ANTIGRAVITY_API_PROXY_URL=${{ secrets.ANTIGRAVITY_API_PROXY_URL }}' >> .env
           echo 'PRIVATE_API_PROXY_URL=${{ secrets.PRIVATE_API_PROXY_URL }}' >> .env
           echo 'PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }}' >> .env
+          echo 'UI_USERNAME=${{ secrets.UI_USERNAME }}' >> .env
+          echo 'UI_PASSWORD=${{ secrets.UI_PASSWORD }}' >> .env
+          echo 'LITELLM_DB_PASSWORD=${{ secrets.LITELLM_DB_PASSWORD }}' >> .env
 
           git pull origin main
           docker compose pull

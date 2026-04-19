@@ -9,7 +9,7 @@ This repo contains the **LiteLLM Proxy configuration** for routing LLM requests 
 | File | Purpose |
 | --- | --- |
 | `config.yaml` | LiteLLM model list, aliases, litellm_settings, router_settings (fallbacks, retries) |
-| `docker-compose.yml` | Local Docker deployment |
+| `docker-compose.yml` | Local Docker deployment with PostgreSQL + Admin UI |
 | `.env.example` | Required environment variables template |
 | `.github/workflows/deploy.yml` | Auto-deploys to Hetzner on push to `main` |
 | `README.md` | User-facing documentation |
@@ -19,11 +19,22 @@ This repo contains the **LiteLLM Proxy configuration** for routing LLM requests 
 
 ```bash
 OPENCODE_API_KEY                    # OpenCode AI API key
-LITELLM_MASTER_KEY                  # Protects the proxy endpoint
+LITELLM_MASTER_KEY                  # Proxy admin key (must start with "sk-")
 ANTIGRAVITY_API_PROXY_URL           # Antigravity API proxy URL
 PRIVATE_API_KEY                     # Private Claude API key
-PRIVATE_API_PROXY_URL               # Private Claude API proxy URL
+PRIVATE_API_PROXY_URL                # Private Claude API proxy URL
+UI_USERNAME                         # Admin UI username
+UI_PASSWORD                         # Admin UI password
+LITELLM_DB_PASSWORD                 # PostgreSQL DB password
 ```
+
+## Admin UI
+
+Access at `http://localhost:4000/ui` (or `http://your-server:4000/ui` on Hetzner).
+
+Login with `UI_USERNAME` / `UI_PASSWORD` from `.env`.
+
+Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
 
 ## Model Backends
 
@@ -62,6 +73,7 @@ Do not leave docs stale. Out-of-sync documentation is a bug.
 - **Config-only repo** — do not add Python/Node code, tests, or package files
 - **Deploy is automated** — push to `main` triggers GitHub Actions → Hetzner deploy
 - **Deploy triggers**: only `config.yaml`, `docker-compose.yml`, and `deploy.yml` changes
+- **`LITELLM_MASTER_KEY` must start with `sk-`** — LiteLLM rejects keys that don't
 
 ## CI/CD Pipeline
 
@@ -72,4 +84,4 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 3. `git pull` + `docker compose pull` + `docker compose up -d`
 4. `docker image prune -f`
 
-Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, ANTIGRAVITY_API_PROXY_URL, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL)
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, ANTIGRAVITY_API_PROXY_URL, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD)

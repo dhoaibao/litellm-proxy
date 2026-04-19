@@ -23,7 +23,7 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | `antigravity/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 |
 | `antigravity/gemini-3.1-pro-high` | anthropic | Gemini 3.1 Pro High |
 
-### Aliases
+### Aliases (via Private API Proxy)
 
 These model names are mapped for Claude Code compatibility:
 
@@ -46,10 +46,13 @@ Required variables:
 
 ```env
 OPENCODE_API_KEY=your-opencode-api-key                   # OpenCode AI API key
-LITELLM_MASTER_KEY=your-master-key                       # Protects the proxy endpoint
+LITELLM_MASTER_KEY=sk-your-master-key                   # Proxy admin key (must start with "sk-")
 ANTIGRAVITY_API_PROXY_URL=your-antigravity-api-proxy-url  # Antigravity API proxy URL
 PRIVATE_API_KEY=your-private-api-key                      # Private Claude API key
 PRIVATE_API_PROXY_URL=your-private-api-proxy-url          # Private Claude API proxy URL
+UI_USERNAME=admin                                        # Admin UI username
+UI_PASSWORD=your-strong-password                          # Admin UI password
+LITELLM_DB_PASSWORD=change-me                           # PostgreSQL DB password
 ```
 
 ### 2. Launch with Docker Compose
@@ -59,6 +62,15 @@ docker compose up -d
 ```
 
 The proxy will be available at `http://localhost:4000`.
+The Admin UI will be available at `http://localhost:4000/ui`. Log in with `UI_USERNAME` / `UI_PASSWORD`.
+
+## Admin UI
+
+Access at `http://localhost:4000/ui`.
+
+Features: view spend logs, create virtual API keys, add/remove models dynamically, monitor usage.
+
+Requires PostgreSQL (automatically provisioned via `docker-compose.yml`).
 
 ## Usage
 
