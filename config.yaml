@@ -41,42 +41,52 @@ model_list:
   - model_name: antigravity/claude-opus-4-6-thinking
     litellm_params:
       model: anthropic/claude-opus-4-6-thinking
-      api_base: os.environ/ANTIGRAVITY_API_BASE
+      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
       api_key: dummy
 
   - model_name: antigravity/claude-sonnet-4-6
     litellm_params:
       model: anthropic/claude-sonnet-4-6
-      api_base: os.environ/ANTIGRAVITY_API_BASE
+      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
       api_key: dummy
 
   - model_name: antigravity/gemini-3.1-pro-high
     litellm_params:
       model: anthropic/gemini-3.1-pro-high
-      api_base: os.environ/ANTIGRAVITY_API_BASE
+      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
       api_key: dummy
 
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/claude-opus-4-6-thinking
-      api_base: os.environ/ANTIGRAVITY_API_BASE
-      api_key: dummy
+      model: anthropic/claude-opus-4-7
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/minimax-m2.5
-      api_base: https://opencode.ai/zen/go
-      api_key: os.environ/OPENCODE_API_KEY
+      model: anthropic/claude-sonnet-4-6
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/minimax-m2.5
-      api_base: https://opencode.ai/zen/go
-      api_key: os.environ/OPENCODE_API_KEY
+      model: anthropic/claude-haiku-4-5-20251001
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
 
 litellm_settings:
   drop_params: true
+  num_retries: 3
+  request_timeout: 60
+  allowed_fails: 3
+
+router_settings:                                                                                                                                                                             
+    fallbacks:                                                                                                                                                                                   
+      - "claude-opus-4-7": ["antigravity/claude-opus-4-6-thinking", "antigravity/gemini-3.1-pro-high", "minimax-m2.7"]                                                                                                                                  
+      - "claude-sonnet-4-6": ["minimax-m2.5"] 
+      - "claude-haiku-4-5-20251001": ["minimax-m2.5"]
+    default_fallbacks: ["minimax-m2.5"]
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

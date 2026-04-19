@@ -1,0 +1,75 @@
+# LiteLLM Proxy — Config Repository
+
+## Project Overview
+
+This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (OpenCode AI, Antigravity Proxy, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
+
+## Key Files
+
+| File | Purpose |
+| --- | --- |
+| `config.yaml` | LiteLLM model list, aliases, litellm_settings, router_settings (fallbacks, retries) |
+| `docker-compose.yml` | Local Docker deployment |
+| `.env.example` | Required environment variables template |
+| `.github/workflows/deploy.yml` | Auto-deploys to Hetzner on push to `main` |
+| `README.md` | User-facing documentation |
+| `.env` | Local secrets (not committed) |
+
+## Environment Variables
+
+```bash
+OPENCODE_API_KEY                    # OpenCode AI API key
+LITELLM_MASTER_KEY                  # Protects the proxy endpoint
+ANTIGRAVITY_API_PROXY_URL           # Antigravity API proxy URL
+PRIVATE_API_KEY                     # Private Claude API key
+PRIVATE_API_PROXY_URL               # Private Claude API proxy URL
+```
+
+## Model Backends
+
+| Backend | Base URL | Models |
+| --- | --- | --- |
+| OpenCode AI | `https://opencode.ai/zen/go` | `minimax-m2.7`, `minimax-m2.5` (anthropic), `glm-5.1`, `glm-5`, `kimi-k2.5`, `qwen3.6-plus` (openai-compat) |
+| Antigravity Proxy | `ANTIGRAVITY_API_PROXY_URL` | `antigravity/claude-opus-4-6-thinking`, `antigravity/claude-sonnet-4-6`, `antigravity/gemini-3.1-pro-high` |
+| Private API Proxy | `PRIVATE_API_PROXY_URL` | `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5-20251001` (aliases) |
+
+## Reliability (Fallback Chain)
+
+| Model | Fallback 1 | Fallback 2 | Fallback 3 | Default |
+| --- | --- | --- | --- | --- |
+| `claude-opus-4-7` | `antigravity/claude-opus-4-6-thinking` | `antigravity/gemini-3.1-pro-high` | `minimax-m2.7` | `minimax-m2.5` |
+| `claude-sonnet-4-6` | `minimax-m2.5` | — | — | `minimax-m2.5` |
+| `claude-haiku-4-5-20251001` | `minimax-m2.5` | — | — | `minimax-m2.5` |
+
+Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
+
+## MANDATORY: Keep Docs in Sync
+
+> **Rule**: Any change to `config.yaml` **must** propagate to all related documentation files in the same commit.
+
+| If you change... | You **must** also update... |
+| --- | --- |
+| Model list, aliases, `litellm_settings`, `router_settings` | `README.md` (Models table, Aliases table, env vars) |
+| New environment variable | `README.md`, `.env.example`, `docker-compose.yml`, `deploy.yml`, `CLAUDE.md` |
+| Deploy pipeline | `CLAUDE.md` (CI/CD section) |
+| Any file in this list | Re-check all others for consistency |
+
+Do not leave docs stale. Out-of-sync documentation is a bug.
+
+## Important Constraints
+
+- **Do not commit `.env`** — contains secrets, ignored by `.gitignore`
+- **Config-only repo** — do not add Python/Node code, tests, or package files
+- **Deploy is automated** — push to `main` triggers GitHub Actions → Hetzner deploy
+- **Deploy triggers**: only `config.yaml`, `docker-compose.yml`, and `deploy.yml` changes
+
+## CI/CD Pipeline
+
+Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` changes):
+
+1. GitHub Actions runs `deploy.yml`
+2. SSH to Hetzner server
+3. `git pull` + `docker compose pull` + `docker compose up -d`
+4. `docker image prune -f`
+
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, ANTIGRAVITY_API_PROXY_URL, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL)

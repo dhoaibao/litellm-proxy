@@ -27,11 +27,11 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 
 These model names are mapped for Claude Code compatibility:
 
-| Alias | Maps To |
-| :---- | :------ |
-| `claude-opus-4-7` | `antigravity/claude-opus-4-6-thinking` |
-| `claude-sonnet-4-6` | `minimax-m2.5` |
-| `claude-haiku-4-5-20251001` | `minimax-m2.5` |
+| Alias | Maps To | Via |
+| :---- | :------ | :-- |
+| `claude-opus-4-7` | `anthropic/claude-opus-4-7` | PRIVATE_API_PROXY_URL |
+| `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
+| `claude-haiku-4-5-20251001` | `anthropic/claude-haiku-4-5-20251001` | PRIVATE_API_PROXY_URL |
 
 ## Setup
 
@@ -45,9 +45,11 @@ cp .env.example .env
 Required variables:
 
 ```env
-LITELLM_MASTER_KEY=your-master-key              # Protects the proxy endpoint
-OPENCODE_API_KEY=your-opencode-api-key          # OpenCode AI API key
-ANTIGRAVITY_API_BASE=your-antigravity-api-proxy-url  # Antigravity API proxy URL
+OPENCODE_API_KEY=your-opencode-api-key                   # OpenCode AI API key
+LITELLM_MASTER_KEY=your-master-key                       # Protects the proxy endpoint
+ANTIGRAVITY_API_PROXY_URL=your-antigravity-api-proxy-url  # Antigravity API proxy URL
+PRIVATE_API_KEY=your-private-api-key                      # Private Claude API key
+PRIVATE_API_PROXY_URL=your-private-api-proxy-url          # Private Claude API proxy URL
 ```
 
 ### 2. Launch with Docker Compose
