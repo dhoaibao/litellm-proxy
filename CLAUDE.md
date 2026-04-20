@@ -40,7 +40,7 @@ Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
 
 | Backend | Base URL | Models |
 | --- | --- | --- |
-| OpenCode AI | `https://opencode.ai/zen/go` | `minimax-m2.7`, `minimax-m2.5` (anthropic), `glm-5.1`, `glm-5`, `kimi-k2.5`, `qwen3.6-plus` (openai-compat) |
+| OpenCode AI | `https://opencode.ai/zen/go` | `opencode-go/minimax-m2.7`, `opencode-go/minimax-m2.5` (anthropic), `opencode-go/glm-5.1`, `opencode-go/glm-5`, `opencode-go/kimi-k2.5`, `opencode-go/qwen3.6-plus` (openai-compat) |
 | Antigravity Proxy | `ANTIGRAVITY_API_PROXY_URL` | `antigravity/claude-opus-4-6-thinking`, `antigravity/claude-sonnet-4-6`, `antigravity/gemini-3.1-pro-high` |
 | Private API Proxy | `PRIVATE_API_PROXY_URL` | `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5-20251001` (aliases) |
 
@@ -48,9 +48,9 @@ Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
 
 | Model | Fallback 1 | Fallback 2 | Fallback 3 | Default |
 | --- | --- | --- | --- | --- |
-| `claude-opus-4-7` | `antigravity/claude-opus-4-6-thinking` | `antigravity/gemini-3.1-pro-high` | `minimax-m2.7` | `minimax-m2.5` |
-| `claude-sonnet-4-6` | `minimax-m2.5` | — | — | `minimax-m2.5` |
-| `claude-haiku-4-5-20251001` | `minimax-m2.5` | — | — | `minimax-m2.5` |
+| `claude-opus-4-7` | `antigravity/claude-opus-4-6-thinking` | `antigravity/gemini-3.1-pro-high` | `opencode-go/minimax-m2.7` | `opencode-go/minimax-m2.5` |
+| `claude-sonnet-4-6` | `opencode-go/minimax-m2.5` | — | — | `opencode-go/minimax-m2.5` |
+| `claude-haiku-4-5-20251001` | `opencode-go/minimax-m2.5` | — | — | `opencode-go/minimax-m2.5` |
 
 Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
 

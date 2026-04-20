@@ -8,12 +8,12 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 
 | Model Name | Provider | Description |
 | :--------- | :------- | :---------- |
-| `minimax-m2.7` | anthropic | MiniMax M2.7 |
-| `minimax-m2.5` | anthropic | MiniMax M2.5 |
-| `glm-5.1` | openai | GLM-5.1 |
-| `glm-5` | openai | GLM-5 |
-| `kimi-k2.5` | openai | Kimi K2.5 |
-| `qwen3.6-plus` | openai | Qwen 3.6+ |
+| `opencode-go/minimax-m2.7` | anthropic | MiniMax M2.7 |
+| `opencode-go/minimax-m2.5` | anthropic | MiniMax M2.5 |
+| `opencode-go/glm-5.1` | openai | GLM-5.1 |
+| `opencode-go/glm-5` | openai | GLM-5 |
+| `opencode-go/kimi-k2.5` | openai | Kimi K2.5 |
+| `opencode-go/qwen3.6-plus` | openai | Qwen 3.6+ |
 
 ### Antigravity Proxy Models
 
@@ -81,7 +81,7 @@ curl http://localhost:4000/v1/chat/completions \
   -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "kimi-k2.5",
+    "model": "opencode-go/kimi-k2.5",
     "max_tokens": 200,
     "messages": [{"role": "user", "content": "Say hi in one sentence."}]
   }'
@@ -95,7 +95,7 @@ curl http://localhost:4000/v1/messages \
   -H "anthropic-version: 2023-06-01" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "minimax-m2.5",
+    "model": "opencode-go/minimax-m2.5",
     "max_tokens": 200,
     "messages": [{"role": "user", "content": "Say hi in one sentence."}]
   }'
