@@ -114,6 +114,25 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 }
 ```
 
+## Token Optimization
+
+The proxy applies two layers of token saving automatically:
+
+**1. Prompt Caching (auto-injected)** — For all Claude models (`claude-*`, `antigravity/claude-*`), LiteLLM automatically adds `cache_control: {type: ephemeral}` to system messages. This caches the static parts of Claude Code's long system prompts (tool definitions, instructions) at the provider level, reducing input token costs by **80–90%** on repeated calls.
+
+**2. Response Cache (in-memory)** — Identical requests return cached responses without hitting the LLM API. Enabled by default with a 1-hour TTL.
+
+To verify prompt caching is working, check `cached_tokens` in the response usage:
+```json
+{
+  "usage": {
+    "prompt_tokens_details": {
+      "cached_tokens": 12000
+    }
+  }
+}
+```
+
 ## Configuration
 
 Edit `config.yaml` to add, remove, or modify models. See the [LiteLLM documentation](https://docs.litellm.ai/docs/proxy/configs) for full configuration options.
