@@ -30,6 +30,8 @@ model_list:
       model: openai/kimi-k2.5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+    model_info:
+      mode: chat
 
   - model_name: qwen3.6-plus
     litellm_params:
