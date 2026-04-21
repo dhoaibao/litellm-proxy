@@ -72,9 +72,9 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/claude-opus-4-7
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
+      model: anthropic/claude-opus-4-6-thinking
+      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
+      api_key: dummy
       cache_control_injection_points:
         - location: message
           role: system
@@ -109,7 +109,7 @@ litellm_settings:
 
 router_settings:                                                                                                                                                                             
     fallbacks:                                                                                                                                                                                   
-      - "claude-opus-4-7": ["antigravity/claude-opus-4-6-thinking", "antigravity/gemini-3.1-pro-high", "opencode-go/minimax-m2.7"]                                                                                                                                  
+      - "claude-opus-4-7": ["private/minimax-m2.7", "opencode-go/minimax-m2.7"]                                                                                                                                  
       - "claude-sonnet-4-6": ["private/minimax-m2.7", "opencode-go/minimax-m2.5"] 
       - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.5"]
     default_fallbacks: ["opencode-go/minimax-m2.5"]

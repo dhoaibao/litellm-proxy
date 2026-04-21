@@ -23,13 +23,19 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | `antigravity/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 |
 | `antigravity/gemini-3.1-pro-high` | anthropic | Gemini 3.1 Pro High |
 
+### Private API Proxy Models
+
+| Model Name | Provider | Description |
+| :--------- | :------- | :---------- |
+| `private/minimax-m2.7` | anthropic | MiniMax M2.7 (via Private Proxy) |
+
 ### Aliases (via Private API Proxy)
 
 These model names are mapped for Claude Code compatibility:
 
 | Alias | Maps To | Via |
 | :---- | :------ | :-- |
-| `claude-opus-4-7` | `anthropic/claude-opus-4-7` | PRIVATE_API_PROXY_URL |
+| `claude-opus-4-7` | `anthropic/claude-opus-4-6-thinking` | ANTIGRAVITY_API_PROXY_URL |
 | `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
 | `claude-haiku-4-5-20251001` | `anthropic/claude-haiku-4-5-20251001` | PRIVATE_API_PROXY_URL |
 
