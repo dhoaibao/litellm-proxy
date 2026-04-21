@@ -37,31 +37,6 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
 
-  # --- Antigravity Proxy ---
-  - model_name: antigravity/claude-opus-4-6-thinking
-    litellm_params:
-      model: anthropic/claude-opus-4-6-thinking
-      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
-      api_key: dummy
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: antigravity/claude-sonnet-4-6
-    litellm_params:
-      model: anthropic/claude-sonnet-4-6
-      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
-      api_key: dummy
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: antigravity/gemini-3.1-pro-high
-    litellm_params:
-      model: anthropic/gemini-3.1-pro-high
-      api_base: os.environ/ANTIGRAVITY_API_PROXY_URL
-      api_key: dummy
-      
   # --- Private Proxy ---
   - model_name: private/minimax-m2.7
     litellm_params:
@@ -107,10 +82,10 @@ litellm_settings:
     type: local
     ttl: 3600
 
-router_settings:                                                                                                                                                                             
-    fallbacks:                                                                                                                                                                                   
-      - "claude-opus-4-7": ["antigravity/claude-sonnet-4-6"]                                                                                                                                  
-      - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"] 
+router_settings:
+    fallbacks:
+      - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
+      - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
       - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.5"]
     default_fallbacks: ["opencode-go/minimax-m2.5"]
 

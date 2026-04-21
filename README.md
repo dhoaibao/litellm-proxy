@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and [Antigravity](https://antigravity.ai).
+Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai).
 
 ## Models
 
@@ -14,14 +14,6 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | `opencode-go/glm-5` | openai | GLM-5 |
 | `opencode-go/kimi-k2.5` | openai | Kimi K2.5 |
 | `opencode-go/qwen3.6-plus` | openai | Qwen 3.6+ |
-
-### Antigravity Proxy Models
-
-| Model Name | Provider | Description |
-| :--------- | :------- | :---------- |
-| `antigravity/claude-opus-4-6-thinking` | anthropic | Claude Opus 4.6 with thinking |
-| `antigravity/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 |
-| `antigravity/gemini-3.1-pro-high` | anthropic | Gemini 3.1 Pro High |
 
 ### Private API Proxy Models
 
@@ -53,7 +45,6 @@ Required variables:
 ```env
 OPENCODE_API_KEY=your-opencode-api-key                   # OpenCode AI API key
 LITELLM_MASTER_KEY=sk-your-master-key                   # Proxy admin key (must start with "sk-")
-ANTIGRAVITY_API_PROXY_URL=your-antigravity-api-proxy-url  # Antigravity API proxy URL
 PRIVATE_API_KEY=your-private-api-key                      # Private Claude API key
 PRIVATE_API_PROXY_URL=your-private-api-proxy-url          # Private Claude API proxy URL
 UI_USERNAME=admin                                        # Admin UI username
