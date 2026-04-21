@@ -29,14 +29,14 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | :--------- | :------- | :---------- |
 | `private/minimax-m2.7` | anthropic | MiniMax M2.7 (via Private Proxy) |
 
-### Aliases (via Private API Proxy)
+### Aliases
 
 These model names are mapped for Claude Code compatibility:
 
 | Alias | Maps To | Via |
 | :---- | :------ | :-- |
-| `claude-opus-4-7` | `anthropic/claude-opus-4-6-thinking` | ANTIGRAVITY_API_PROXY_URL |
-| `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
+| `claude-opus-4-7` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
+| `claude-sonnet-4-6` | `anthropic/minimax-m2.7` | PRIVATE_API_PROXY_URL |
 | `claude-haiku-4-5-20251001` | `anthropic/claude-haiku-4-5-20251001` | PRIVATE_API_PROXY_URL |
 
 ## Setup

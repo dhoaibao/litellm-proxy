@@ -48,8 +48,8 @@ Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
 
 | Model | Fallback 1 | Fallback 2 | Fallback 3 | Default |
 | --- | --- | --- | --- | --- |
-| `claude-opus-4-7` | `private/minimax-m2.7` | `opencode-go/minimax-m2.7` | — | `opencode-go/minimax-m2.5` |
-| `claude-sonnet-4-6` | `private/minimax-m2.7` | `opencode-go/minimax-m2.5` | — | `opencode-go/minimax-m2.5` |
+| `claude-opus-4-7` | `antigravity/claude-sonnet-4-6` | — | — | `opencode-go/minimax-m2.5` |
+| `claude-sonnet-4-6` | `opencode-go/minimax-m2.7` | — | — | `opencode-go/minimax-m2.5` |
 | `claude-haiku-4-5-20251001` | `opencode-go/minimax-m2.5` | — | — | `opencode-go/minimax-m2.5` |
 
 Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
