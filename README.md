@@ -20,6 +20,10 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | Model Name | Provider | Description |
 | :--------- | :------- | :---------- |
 | `private/minimax-m2.7` | anthropic | MiniMax M2.7 (via Private Proxy) |
+| `private/gpt-5.4` | anthropic | GPT-5.4 (via Private Proxy) |
+| `private/gpt-5.3-codex` | anthropic | GPT-5.3-Codex (via Private Proxy) |
+| `private/claude-opus-4-7` | anthropic | Claude Opus 4.7 (via Private Proxy) |
+| `private/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 (via Private Proxy) |
 
 ### Aliases
 
@@ -27,9 +31,9 @@ These model names are mapped for Claude Code compatibility:
 
 | Alias | Maps To | Via |
 | :---- | :------ | :-- |
-| `claude-opus-4-7` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
-| `claude-sonnet-4-6` | `anthropic/minimax-m2.7` | PRIVATE_API_PROXY_URL |
-| `claude-haiku-4-5-20251001` | `anthropic/claude-haiku-4-5-20251001` | PRIVATE_API_PROXY_URL |
+| `claude-opus-4-7` | `anthropic/gpt-5.4` | PRIVATE_API_PROXY_URL |
+| `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
+| `claude-haiku-4-5-20251001` | `anthropic/minimax-m2.7` | PRIVATE_API_PROXY_URL |
 
 ## Setup
 

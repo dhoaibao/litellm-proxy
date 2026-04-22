@@ -62,12 +62,6 @@ model_list:
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
 
-  - model_name: private/gemini-3.1-pro-high
-    litellm_params:
-      model: anthropic/gemini-3.1-pro-high
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
-
   - model_name: private/claude-opus-4-7
     litellm_params:
       model: anthropic/claude-opus-4-7
@@ -83,7 +77,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/claude-sonnet-4-6
+      model: anthropic/gpt-5.4
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -92,7 +86,7 @@ model_list:
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/minimax-m2.7
+      model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -101,7 +95,7 @@ model_list:
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/claude-haiku-4-5-20251001
+      model: anthropic/minimax-m2.7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -122,7 +116,7 @@ router_settings:
     fallbacks:
       - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
       - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
-      - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.5"]
+      - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
     default_fallbacks: ["opencode-go/minimax-m2.5"]
 
 general_settings:
