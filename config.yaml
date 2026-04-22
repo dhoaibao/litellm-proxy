@@ -31,6 +31,12 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
 
+  - model_name: opencode-go/kimi-k2.6
+    litellm_params:
+      model: openai/kimi-k2.6
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+
   - model_name: opencode-go/qwen3.6-plus
     litellm_params:
       model: openai/qwen3.6-plus
@@ -41,6 +47,36 @@ model_list:
   - model_name: private/minimax-m2.7
     litellm_params:
       model: anthropic/minimax-m2.7
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
+  - model_name: private/gpt-5.4
+    litellm_params:
+      model: anthropic/gpt-5.4
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
+  - model_name: private/gpt-5.3-codex
+    litellm_params:
+      model: anthropic/gpt-5.3-codex
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
+  - model_name: private/gemini-3.1-pro-high
+    litellm_params:
+      model: anthropic/gemini-3.1-pro-high
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
+  - model_name: private/claude-opus-4-7
+    litellm_params:
+      model: anthropic/claude-opus-4-7
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
+  - model_name: private/claude-sonnet-4-6
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
 
