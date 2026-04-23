@@ -35,7 +35,7 @@ These model names are mapped for Claude Code compatibility:
 | :---- | :------ | :-- |
 | `claude-opus-4-7` | `anthropic/gpt-5.4` | PRIVATE_API_PROXY_URL |
 | `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
-| `claude-haiku-4-5-20251001` | `anthropic/minimax-m2.7` | PRIVATE_API_PROXY_URL |
+| `claude-haiku-4-5-20251001` | `anthropic/kimi-k2.6` | PRIVATE_API_PROXY_URL |
 
 ## Setup
 
