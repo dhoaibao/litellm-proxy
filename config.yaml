@@ -50,6 +50,12 @@ model_list:
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
 
+  - model_name: private/kimi-k2.6
+    litellm_params:
+      model: anthropic/kimi-k2.6
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
   - model_name: private/gpt-5.4
     litellm_params:
       model: anthropic/gpt-5.4

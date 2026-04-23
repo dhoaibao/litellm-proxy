@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai).
+Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and a private API proxy.
 
 ## Models
 
@@ -13,6 +13,7 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | `opencode-go/glm-5.1` | openai | GLM-5.1 |
 | `opencode-go/glm-5` | openai | GLM-5 |
 | `opencode-go/kimi-k2.5` | openai | Kimi K2.5 |
+| `opencode-go/kimi-k2.6` | openai | Kimi K2.6 |
 | `opencode-go/qwen3.6-plus` | openai | Qwen 3.6+ |
 
 ### Private API Proxy Models
@@ -20,6 +21,7 @@ Proxy server for routing AI model requests through [LiteLLM](https://docs.litell
 | Model Name | Provider | Description |
 | :--------- | :------- | :---------- |
 | `private/minimax-m2.7` | anthropic | MiniMax M2.7 (via Private Proxy) |
+| `private/kimi-k2.6` | anthropic | Kimi K2.6 (via Private Proxy) |
 | `private/gpt-5.4` | anthropic | GPT-5.4 (via Private Proxy) |
 | `private/gpt-5.3-codex` | anthropic | GPT-5.3-Codex (via Private Proxy) |
 | `private/claude-opus-4-7` | anthropic | Claude Opus 4.7 (via Private Proxy) |
