@@ -5,16 +5,18 @@ model_list:
       model: anthropic/minimax-m2.7
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000030
-      output_cost_per_unit: 0.00000120
+    model_info:
+      input_cost_per_token: 0.00000030
+      output_cost_per_token: 0.00000120
 
   - model_name: opencode-go/minimax-m2.5
     litellm_params:
       model: anthropic/minimax-m2.5
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000015
-      output_cost_per_unit: 0.00000115
+    model_info:
+      input_cost_per_token: 0.00000015
+      output_cost_per_token: 0.00000115
 
   # --- OpenAI-compat ---
   - model_name: opencode-go/glm-5.1
@@ -22,40 +24,45 @@ model_list:
       model: openai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000105
-      output_cost_per_unit: 0.00000350
+    model_info:
+      input_cost_per_token: 0.00000105
+      output_cost_per_token: 0.00000350
 
   - model_name: opencode-go/glm-5
     litellm_params:
       model: openai/glm-5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000060
-      output_cost_per_unit: 0.00000208
+    model_info:
+      input_cost_per_token: 0.00000060
+      output_cost_per_token: 0.00000208
 
   - model_name: opencode-go/kimi-k2.5
     litellm_params:
       model: openai/kimi-k2.5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000044
-      output_cost_per_unit: 0.00000200
+    model_info:
+      input_cost_per_token: 0.00000044
+      output_cost_per_token: 0.00000200
 
   - model_name: opencode-go/kimi-k2.6
     litellm_params:
       model: openai/kimi-k2.6
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.00000095
-      output_cost_per_unit: 0.00000466
+    model_info:
+      input_cost_per_token: 0.00000095
+      output_cost_per_token: 0.00000466
 
   - model_name: opencode-go/qwen3.6-plus
     litellm_params:
       model: openai/qwen3.6-plus
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      input_cost_per_unit: 0.000000325
-      output_cost_per_unit: 0.00000195
+    model_info:
+      input_cost_per_token: 0.000000325
+      output_cost_per_token: 0.00000195
 
   # --- Private Proxy ---
   - model_name: private/minimax-m2.7
@@ -63,56 +70,63 @@ model_list:
       model: anthropic/minimax-m2.7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.00000030
-      output_cost_per_unit: 0.00000120
+    model_info:
+      input_cost_per_token: 0.00000030
+      output_cost_per_token: 0.00000120
 
   - model_name: private/kimi-k2.6
     litellm_params:
       model: anthropic/kimi-k2.6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.00000095
-      output_cost_per_unit: 0.00000466
+    model_info:
+      input_cost_per_token: 0.00000095
+      output_cost_per_token: 0.00000466
 
   - model_name: private/gpt-5.4
     litellm_params:
       model: anthropic/gpt-5.4
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.000003
-      output_cost_per_unit: 0.000015
+    model_info:
+      input_cost_per_token: 0.000003
+      output_cost_per_token: 0.000015
 
   - model_name: private/gpt-5.5
     litellm_params:
       model: anthropic/gpt-5.5
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.000004
-      output_cost_per_unit: 0.000020
+    model_info:
+      input_cost_per_token: 0.000004
+      output_cost_per_token: 0.000020
 
   - model_name: private/gpt-5.3-codex
     litellm_params:
       model: anthropic/gpt-5.3-codex
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.000002
-      output_cost_per_unit: 0.000010
+    model_info:
+      input_cost_per_token: 0.000002
+      output_cost_per_token: 0.000010
 
   - model_name: private/claude-opus-4-7
     litellm_params:
       model: anthropic/claude-opus-4-7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.000005
-      output_cost_per_unit: 0.000025
+    model_info:
+      input_cost_per_token: 0.000005
+      output_cost_per_token: 0.000025
 
   - model_name: private/claude-sonnet-4-6
     litellm_params:
       model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      input_cost_per_unit: 0.000003
-      output_cost_per_unit: 0.000015
+    model_info:
+      input_cost_per_token: 0.000003
+      output_cost_per_token: 0.000015
 
   # --- Aliases ---
   - model_name: claude-opus-4-7
@@ -123,8 +137,9 @@ model_list:
       cache_control_injection_points:
         - location: message
           role: system
-      input_cost_per_unit: 0.000004
-      output_cost_per_unit: 0.000020
+    model_info:
+      input_cost_per_token: 0.000004
+      output_cost_per_token: 0.000020
 
   - model_name: claude-sonnet-4-6
     litellm_params:
@@ -134,8 +149,9 @@ model_list:
       cache_control_injection_points:
         - location: message
           role: system
-      input_cost_per_unit: 0.000003
-      output_cost_per_unit: 0.000015
+    model_info:
+      input_cost_per_token: 0.000003
+      output_cost_per_token: 0.000015
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
@@ -145,8 +161,9 @@ model_list:
       cache_control_injection_points:
         - location: message
           role: system
-      input_cost_per_unit: 0.00000030
-      output_cost_per_unit: 0.00000120
+    model_info:
+      input_cost_per_token: 0.00000030
+      output_cost_per_token: 0.00000120
 
 litellm_settings:
   drop_params: true
