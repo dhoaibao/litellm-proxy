@@ -25,7 +25,7 @@ PRIVATE_API_KEY                     # Private Claude API key
 PRIVATE_API_PROXY_URL                # Private Claude API proxy URL
 UI_USERNAME                         # Admin UI username
 UI_PASSWORD                         # Admin UI password
-LITELLM_DB_PASSWORD                 # PostgreSQL DB password
+DATABASE_URL                        # Neon PostgreSQL connection string
 ```
 
 ## Admin UI
@@ -70,4 +70,4 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 3. `git pull` + `docker compose pull` + `docker compose up -d`
 4. `docker image prune -f`
 
-Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, ANTIGRAVITY_API_PROXY_URL, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD)
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, ANTIGRAVITY_API_PROXY_URL, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, UI_USERNAME, UI_PASSWORD, DATABASE_URL)
