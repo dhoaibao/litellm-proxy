@@ -18,12 +18,13 @@ model_list:
       input_cost_per_token: 0.00000015
       output_cost_per_token: 0.00000115
 
-  # --- OpenAI-compat ---
+  # --- OpenAI-compat (reasoningSummary must be dropped for Claude Code) ---
   - model_name: opencode-go/glm-5.1
     litellm_params:
       model: openai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+      additional_drop_params: ["reasoningSummary"]
     model_info:
       input_cost_per_token: 0.00000105
       output_cost_per_token: 0.00000350
@@ -33,6 +34,7 @@ model_list:
       model: openai/glm-5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+      additional_drop_params: ["reasoningSummary"]
     model_info:
       input_cost_per_token: 0.00000060
       output_cost_per_token: 0.00000208
@@ -42,6 +44,7 @@ model_list:
       model: openai/kimi-k2.5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+      additional_drop_params: ["reasoningSummary"]
     model_info:
       input_cost_per_token: 0.00000044
       output_cost_per_token: 0.00000200
@@ -51,6 +54,7 @@ model_list:
       model: openai/kimi-k2.6
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+      additional_drop_params: ["reasoningSummary"]
     model_info:
       input_cost_per_token: 0.00000095
       output_cost_per_token: 0.00000466
@@ -60,6 +64,7 @@ model_list:
       model: openai/qwen3.6-plus
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
+      additional_drop_params: ["reasoningSummary"]
     model_info:
       input_cost_per_token: 0.000000325
       output_cost_per_token: 0.00000195
