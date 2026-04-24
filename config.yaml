@@ -107,7 +107,7 @@ model_list:
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/kimi-k2.6
+      model: anthropic/minimax-m2.7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -119,17 +119,28 @@ litellm_settings:
   num_retries: 3
   request_timeout: 60
   allowed_fails: 3
-  cache: True
+  set_verbose: false
+  json_logs: true
+  cache: true
   cache_params:
     type: local
     ttl: 3600
 
 router_settings:
-    fallbacks:
-      - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
-      - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
-      - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
-    default_fallbacks: ["opencode-go/minimax-m2.5"]
+  routing_strategy: simple-shuffle
+  fallbacks:
+    - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
+    - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
+    - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
+  context_window_fallbacks:
+    - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
+    - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
+    - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
+  default_fallbacks: ["opencode-go/minimax-m2.5"]
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
+  proxy_batch_write_at: 60
+  user_api_key_cache_ttl: 300
+  disable_error_logs: true
+  allow_requests_on_db_unavailable: true
