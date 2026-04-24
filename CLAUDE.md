@@ -8,7 +8,7 @@ This repo contains the **LiteLLM Proxy configuration** for routing LLM requests 
 
 | File | Purpose |
 | --- | --- |
-| `config.yaml` | LiteLLM model list, aliases, litellm_settings, router_settings (fallbacks, retries) |
+| `config.yaml` | LiteLLM proxy routing, litellm_settings, router_settings |
 | `docker-compose.yml` | Local Docker deployment with PostgreSQL + Admin UI |
 | `.env.example` | Required environment variables template |
 | `.github/workflows/deploy.yml` | Auto-deploys to Hetzner on push to `main` |
@@ -36,20 +36,7 @@ Login with `UI_USERNAME` / `UI_PASSWORD` from `.env`.
 
 Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
 
-## Model Backends
-
-| Backend | Base URL | Models |
-| --- | --- | --- |
-| OpenCode AI | `https://opencode.ai/zen/go` | `opencode-go/minimax-m2.7`, `opencode-go/minimax-m2.5` (anthropic), `opencode-go/glm-5.1`, `opencode-go/glm-5`, `opencode-go/kimi-k2.5`, `opencode-go/kimi-k2.6`, `opencode-go/qwen3.6-plus` (openai-compat) |
-| Private API Proxy | `PRIVATE_API_PROXY_URL` | `private/minimax-m2.7`, `private/kimi-k2.6`, `private/gpt-5.4`, `private/gpt-5.3-codex`, `private/claude-opus-4-7`, `private/claude-sonnet-4-6` (anthropic) |
-
-## Reliability (Fallback Chain)
-
-| Model | Fallback 1 | Default |
-| --- | --- | --- |
-| `claude-opus-4-7` | `opencode-go/minimax-m2.7` | `opencode-go/minimax-m2.5` |
-| `claude-sonnet-4-6` | `opencode-go/minimax-m2.7` | `opencode-go/minimax-m2.5` |
-| `claude-haiku-4-5-20251001` | `opencode-go/minimax-m2.7` | `opencode-go/minimax-m2.5` |
+## Reliability
 
 Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
 
@@ -59,7 +46,7 @@ Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
 
 | If you change... | You **must** also update... |
 | --- | --- |
-| Model list, aliases, `litellm_settings`, `router_settings` | `README.md` (Models table, Aliases table, env vars) |
+| `litellm_settings`, `router_settings`, routing configuration | `README.md` (configuration notes, env vars) |
 | New environment variable | `README.md`, `.env.example`, `docker-compose.yml`, `deploy.yml`, `CLAUDE.md` |
 | Deploy pipeline | `CLAUDE.md` (CI/CD section) |
 | Any file in this list | Re-check all others for consistency |

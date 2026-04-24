@@ -62,6 +62,12 @@ model_list:
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
 
+  - model_name: private/gpt-5.5
+    litellm_params:
+      model: anthropic/gpt-5.5
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
   - model_name: private/gpt-5.3-codex
     litellm_params:
       model: anthropic/gpt-5.3-codex
@@ -83,7 +89,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/gpt-5.4
+      model: anthropic/gpt-5.5
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:

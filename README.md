@@ -1,41 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI model requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and a private API proxy.
-
-## Models
-
-### OpenCode Models
-
-| Model Name | Provider | Description |
-| :--------- | :------- | :---------- |
-| `opencode-go/minimax-m2.7` | anthropic | MiniMax M2.7 |
-| `opencode-go/minimax-m2.5` | anthropic | MiniMax M2.5 |
-| `opencode-go/glm-5.1` | openai | GLM-5.1 |
-| `opencode-go/glm-5` | openai | GLM-5 |
-| `opencode-go/kimi-k2.5` | openai | Kimi K2.5 |
-| `opencode-go/kimi-k2.6` | openai | Kimi K2.6 |
-| `opencode-go/qwen3.6-plus` | openai | Qwen 3.6+ |
-
-### Private API Proxy Models
-
-| Model Name | Provider | Description |
-| :--------- | :------- | :---------- |
-| `private/minimax-m2.7` | anthropic | MiniMax M2.7 (via Private Proxy) |
-| `private/kimi-k2.6` | anthropic | Kimi K2.6 (via Private Proxy) |
-| `private/gpt-5.4` | anthropic | GPT-5.4 (via Private Proxy) |
-| `private/gpt-5.3-codex` | anthropic | GPT-5.3-Codex (via Private Proxy) |
-| `private/claude-opus-4-7` | anthropic | Claude Opus 4.7 (via Private Proxy) |
-| `private/claude-sonnet-4-6` | anthropic | Claude Sonnet 4.6 (via Private Proxy) |
-
-### Aliases
-
-These model names are mapped for Claude Code compatibility:
-
-| Alias | Maps To | Via |
-| :---- | :------ | :-- |
-| `claude-opus-4-7` | `anthropic/gpt-5.4` | PRIVATE_API_PROXY_URL |
-| `claude-sonnet-4-6` | `anthropic/claude-sonnet-4-6` | PRIVATE_API_PROXY_URL |
-| `claude-haiku-4-5-20251001` | `anthropic/kimi-k2.6` | PRIVATE_API_PROXY_URL |
+Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and a private API proxy.
 
 ## Setup
 
@@ -71,38 +36,13 @@ The Admin UI will be available at `http://localhost:4000/ui`. Log in with `UI_US
 
 Access at `http://localhost:4000/ui`.
 
-Features: view spend logs, create virtual API keys, add/remove models dynamically, monitor usage.
+Features: view spend logs, create virtual API keys, and monitor usage.
 
 Requires PostgreSQL (automatically provisioned via `docker-compose.yml`).
 
 ## Usage
 
-### Chat Completions API (OpenAI-compatible)
-
-```bash
-curl http://localhost:4000/v1/chat/completions \
-  -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "opencode-go/kimi-k2.5",
-    "max_tokens": 200,
-    "messages": [{"role": "user", "content": "Say hi in one sentence."}]
-  }'
-```
-
-### Messages API (Anthropic)
-
-```bash
-curl http://localhost:4000/v1/messages \
-  -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "opencode-go/minimax-m2.5",
-    "max_tokens": 200,
-    "messages": [{"role": "user", "content": "Say hi in one sentence."}]
-  }'
-```
+Use the LiteLLM-compatible APIs with the configured routing in `config.yaml`.
 
 ## Configure Claude Code Proxy
 
@@ -121,7 +61,7 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 
 The proxy applies two layers of token saving automatically:
 
-**1. Prompt Caching (auto-injected)** — For all Claude models (`claude-*`, `antigravity/claude-*`), LiteLLM automatically adds `cache_control: {type: ephemeral}` to system messages. This caches the static parts of Claude Code's long system prompts (tool definitions, instructions) at the provider level, reducing input token costs by **80–90%** on repeated calls.
+**1. Prompt Caching (auto-injected)** — LiteLLM automatically adds `cache_control: {type: ephemeral}` to system messages. This caches the static parts of Claude Code's long system prompts (tool definitions, instructions) at the provider level, reducing input token costs by **80–90%** on repeated calls.
 
 **2. Response Cache (in-memory)** — Identical requests return cached responses without hitting the LLM API. Enabled by default with a 1-hour TTL.
 
@@ -138,4 +78,4 @@ To verify prompt caching is working, check `cached_tokens` in the response usage
 
 ## Configuration
 
-Edit `config.yaml` to add, remove, or modify models. See the [LiteLLM documentation](https://docs.litellm.ai/docs/proxy/configs) for full configuration options.
+Edit `config.yaml` to update proxy routing and LiteLLM settings. See the [LiteLLM documentation](https://docs.litellm.ai/docs/proxy/configs) for full configuration options.
