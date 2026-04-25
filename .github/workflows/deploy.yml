@@ -37,15 +37,17 @@ jobs:
           cd ${{ vars.DEPLOY_PATH }}
 
           # Update .env file with secrets
-          mkdir -p .env 2>/dev/null || true
-          echo 'LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}' > .env
-          echo 'OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}' >> .env
-          echo 'ANTIGRAVITY_API_PROXY_URL=${{ secrets.ANTIGRAVITY_API_PROXY_URL }}' >> .env
-          echo 'PRIVATE_API_PROXY_URL=${{ secrets.PRIVATE_API_PROXY_URL }}' >> .env
-          echo 'PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }}' >> .env
-          echo 'UI_USERNAME=${{ secrets.UI_USERNAME }}' >> .env
-          echo 'UI_PASSWORD=${{ secrets.UI_PASSWORD }}' >> .env
-          echo 'DATABASE_URL=${{ secrets.DATABASE_URL }}' >> .env
+          rm -rf .env
+          cat > .env << 'ENDFILE'
+          LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}
+          OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}
+          ANTIGRAVITY_API_PROXY_URL=${{ secrets.ANTIGRAVITY_API_PROXY_URL }}
+          PRIVATE_API_PROXY_URL=${{ secrets.PRIVATE_API_PROXY_URL }}
+          PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }}
+          UI_USERNAME=${{ secrets.UI_USERNAME }}
+          UI_PASSWORD=${{ secrets.UI_PASSWORD }}
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          ENDFILE
 
           git pull origin main
           docker compose pull
