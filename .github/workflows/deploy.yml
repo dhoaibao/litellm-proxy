@@ -42,7 +42,6 @@ jobs:
           cat > .env << 'ENDFILE'
           LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}
           OPENCODE_API_KEY=${{ secrets.OPENCODE_API_KEY }}
-          ANTIGRAVITY_API_PROXY_URL=${{ secrets.ANTIGRAVITY_API_PROXY_URL }}
           PRIVATE_API_PROXY_URL=${{ secrets.PRIVATE_API_PROXY_URL }}
           PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }}
           UI_USERNAME=${{ secrets.UI_USERNAME }}
