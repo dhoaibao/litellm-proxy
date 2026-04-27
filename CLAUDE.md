@@ -25,7 +25,7 @@ PRIVATE_API_KEY                     # Private Claude API key
 PRIVATE_API_PROXY_URL                # Private Claude API proxy URL
 UI_USERNAME                         # Admin UI username
 UI_PASSWORD                         # Admin UI password
-DATABASE_URL                        # Neon PostgreSQL connection string
+DATABASE_URL                        # PostgreSQL connection string
 ```
 
 ## Admin UI

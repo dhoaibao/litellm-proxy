@@ -20,7 +20,7 @@ PRIVATE_API_KEY=your-private-api-key                      # Private Claude API k
 PRIVATE_API_PROXY_URL=your-private-api-proxy-url          # Private Claude API proxy URL
 UI_USERNAME=admin                                        # Admin UI username
 UI_PASSWORD=your-strong-password                          # Admin UI password
-DATABASE_URL=postgresql://user:password@ep-xxx.neon.tech/dbname?sslmode=require  # Neon PostgreSQL connection string
+DATABASE_URL=postgresql://user:password@host:port/dbname  # PostgreSQL connection string
 ```
 
 ### 2. Launch with Docker Compose
@@ -38,7 +38,7 @@ Access at `http://localhost:4000/ui`.
 
 Features: view spend logs, create virtual API keys, and monitor usage.
 
-Requires PostgreSQL (Neon cloud — set `DATABASE_URL` in `.env`).
+Requires PostgreSQL — set `DATABASE_URL` in `.env`.
 
 ## Usage
 
