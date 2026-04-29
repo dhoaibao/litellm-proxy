@@ -130,7 +130,7 @@ model_list:
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/claude-sonnet-4-6
+      model: anthropic/kimi-k2.6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
