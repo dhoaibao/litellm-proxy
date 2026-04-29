@@ -68,31 +68,6 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
-  
-  # GitHub Copilot
-  - model_name: github_copilot/gpt-4.1
-    litellm_params:
-      model: github_copilot/gpt-4.1
-
-  - model_name: github_copilot/gpt-4o
-    litellm_params:
-      model: github_copilot/gpt-4o
-
-  - model_name: github_copilot/gpt-5-mini
-    litellm_params:
-      model: github_copilot/gpt-5-mini
-
-  - model_name: github_copilot/gpt-5.3-codex
-    litellm_params:
-      model: github_copilot/gpt-5.3-codex
-
-  - model_name: github_copilot/gemini-3.1-pro-preview
-    litellm_params:
-      model: github_copilot/gemini-3.1-pro-preview
-
-  - model_name: github_copilot/claude-haiku-4.5
-    litellm_params:
-      model: github_copilot/claude-haiku-4.5
 
   # --- Private Proxy ---
   - model_name: private/minimax-m2.7
@@ -146,7 +121,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/kimi-k2.6
+      model: anthropic/gpt-5.4
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -155,7 +130,7 @@ model_list:
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/minimax-m2.7
+      model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -164,9 +139,9 @@ model_list:
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/minimax-m2.5
-      api_base: https://opencode.ai/zen/go
-      api_key: os.environ/OPENCODE_API_KEY
+      model: anthropic/minimax-m2.7
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
         - location: message
           role: system
