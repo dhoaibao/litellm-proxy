@@ -15,12 +15,12 @@ Required variables:
 
 ```env
 OPENCODE_API_KEY=your-opencode-api-key                   # OpenCode AI API key
-LITELLM_MASTER_KEY=sk-your-master-key                   # Proxy admin key (must start with "sk-")
-PRIVATE_API_KEY=your-private-api-key                      # Private Claude API key
-PRIVATE_API_PROXY_URL=your-private-api-proxy-url          # Private Claude API proxy URL
+LITELLM_MASTER_KEY=sk-your-master-key                    # Proxy admin key (must start with "sk-")
+PRIVATE_API_KEY=your-private-api-key                     # Private Claude API key
+PRIVATE_API_PROXY_URL=your-private-api-proxy-url         # Private Claude API proxy URL
 UI_USERNAME=admin                                        # Admin UI username
-UI_PASSWORD=your-strong-password                          # Admin UI password
-DATABASE_URL=postgresql://user:password@host:port/dbname  # PostgreSQL connection string
+UI_PASSWORD=your-strong-password                         # Admin UI password
+DATABASE_URL=postgresql://user:password@host:port/dbname # PostgreSQL connection string
 ```
 
 ### 2. Launch with Docker Compose
