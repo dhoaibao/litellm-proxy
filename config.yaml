@@ -5,12 +5,18 @@ model_list:
       model: anthropic/minimax-m2.7
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: opencode-go/minimax-m2.5
     litellm_params:
       model: anthropic/minimax-m2.5
       api_base: https://opencode.ai/zen/go
       api_key: os.environ/OPENCODE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   # --- OpenAI-compat (reasoningSummary must be dropped for Claude Code) ---
   - model_name: opencode-go/deepseek-v4-pro
@@ -19,20 +25,29 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
-      
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   - model_name: opencode-go/deepseek-v4-flash
     litellm_params:
       model: openai/deepseek-v4-flash
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
-  
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   - model_name: opencode-go/glm-5.1
     litellm_params:
       model: openai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: opencode-go/glm-5
     litellm_params:
@@ -40,6 +55,9 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: opencode-go/kimi-k2.5
     litellm_params:
@@ -47,6 +65,9 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: opencode-go/kimi-k2.6
     litellm_params:
@@ -54,13 +75,19 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
-      
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   - model_name: opencode-go/qwen3.5-plus
     litellm_params:
       model: openai/qwen3.5-plus
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: opencode-go/qwen3.6-plus
     litellm_params:
@@ -68,6 +95,9 @@ model_list:
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
       additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   # --- Private Proxy ---
   - model_name: private/minimax-m2.7
@@ -75,48 +105,72 @@ model_list:
       model: anthropic/minimax-m2.7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/kimi-k2.6
     litellm_params:
       model: anthropic/kimi-k2.6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/gpt-5.4
     litellm_params:
       model: anthropic/gpt-5.4
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/gpt-5.5
     litellm_params:
       model: anthropic/gpt-5.5
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/gpt-5.3-codex
     litellm_params:
       model: anthropic/gpt-5.3-codex
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   - model_name: private/claude-opus-4-7
     litellm_params:
       model: anthropic/claude-opus-4-7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/claude-opus-4-6
     litellm_params:
       model: anthropic/claude-opus-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   - model_name: private/claude-sonnet-4-6
     litellm_params:
       model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
 
   # --- Aliases ---
   - model_name: claude-opus-4-7
