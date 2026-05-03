@@ -1,5 +1,30 @@
 model_list:
-  # --- Anthropic-native ---
+  # --- GitHub Copilot ---
+  - model_name: github_copilot/gemini-3.1-pro-preview
+    litellm_params:
+      model: github_copilot/gemini-3.1-pro-preview
+      additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/gpt-4.1
+    litellm_params:
+      model: github_copilot/gpt-4.1
+      additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/gpt-4o
+    litellm_params:
+      model: github_copilot/gpt-4o
+      additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
+  
+  # --- OpenCode Go (Anthropic-native) ---
   - model_name: opencode-go/minimax-m2.7
     litellm_params:
       model: anthropic/minimax-m2.7
@@ -18,7 +43,8 @@ model_list:
         - location: message
           role: system
 
-  # --- OpenAI-compat (reasoningSummary must be dropped for Claude Code) ---
+  # --- OpenCodeGo (OpenAI-compat) ---
+  # reasoningSummary must be dropped for Claude Code
   - model_name: opencode-go/deepseek-v4-pro
     litellm_params:
       model: openai/deepseek-v4-pro
@@ -175,9 +201,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/gpt-5.4
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
+      model: github_copilot/gemini-3.1-pro-preview
       cache_control_injection_points:
         - location: message
           role: system
@@ -193,7 +217,7 @@ model_list:
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/minimax-m2.7
+      model: anthropic/gpt-5.3-codex
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -215,14 +239,14 @@ litellm_settings:
 router_settings:
   routing_strategy: simple-shuffle
   fallbacks:
-    - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
-    - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
-    - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
+    - "claude-opus-4-7": ["private/claude-sonnet-4-6"]
+    - "claude-sonnet-4-6": ["private/claude-sonnet-4-6"]
+    - "claude-haiku-4-5-20251001": ["private/claude-sonnet-4-6"]
   context_window_fallbacks:
-    - "claude-opus-4-7": ["opencode-go/minimax-m2.7"]
-    - "claude-sonnet-4-6": ["opencode-go/minimax-m2.7"]
-    - "claude-haiku-4-5-20251001": ["opencode-go/minimax-m2.7"]
-  default_fallbacks: ["opencode-go/minimax-m2.5"]
+    - "claude-opus-4-7": ["private/claude-sonnet-4-6"]
+    - "claude-sonnet-4-6": ["private/claude-sonnet-4-6"]
+    - "claude-haiku-4-5-20251001": ["private/claude-sonnet-4-6"]
+  default_fallbacks: ["private/minimax-m2.7"]
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
