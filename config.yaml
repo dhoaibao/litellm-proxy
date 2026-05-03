@@ -3,7 +3,34 @@ model_list:
   - model_name: github_copilot/gemini-3.1-pro-preview
     litellm_params:
       model: github_copilot/gemini-3.1-pro-preview
-      additional_drop_params: ["reasoningSummary"]
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/gemini-3-flash-preview
+    litellm_params:
+      model: github_copilot/gemini-3-flash-preview
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/gpt-5.4-mini
+    litellm_params:
+      model: github_copilot/gpt-5.4-mini
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/claude-haiku-4.5
+    litellm_params:
+      model: github_copilot/claude-haiku-4.5
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: github_copilot/gpt-5-mini
+    litellm_params:
+      model: github_copilot/gpt-5-mini
       cache_control_injection_points:
         - location: message
           role: system
@@ -11,7 +38,6 @@ model_list:
   - model_name: github_copilot/gpt-4.1
     litellm_params:
       model: github_copilot/gpt-4.1
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -19,7 +45,6 @@ model_list:
   - model_name: github_copilot/gpt-4o
     litellm_params:
       model: github_copilot/gpt-4o
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -44,13 +69,11 @@ model_list:
           role: system
 
   # --- OpenCodeGo (OpenAI-compat) ---
-  # reasoningSummary must be dropped for Claude Code
   - model_name: opencode-go/deepseek-v4-pro
     litellm_params:
       model: openai/deepseek-v4-pro
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -60,7 +83,6 @@ model_list:
       model: openai/deepseek-v4-flash
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -70,7 +92,6 @@ model_list:
       model: openai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -80,7 +101,6 @@ model_list:
       model: openai/glm-5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -90,7 +110,6 @@ model_list:
       model: openai/kimi-k2.5
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -100,7 +119,6 @@ model_list:
       model: openai/kimi-k2.6
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -110,7 +128,6 @@ model_list:
       model: openai/qwen3.5-plus
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
@@ -120,7 +137,6 @@ model_list:
       model: openai/qwen3.6-plus
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
-      additional_drop_params: ["reasoningSummary"]
       cache_control_injection_points:
         - location: message
           role: system
