@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by [OpenCode AI Zen API](https://opencode.ai) and a private API proxy.
+Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, GitHub Copilot, [OpenCode AI Zen API](https://opencode.ai), and a private API proxy.
 
 ## Setup
 
@@ -18,6 +18,7 @@ OPENCODE_API_KEY=your-opencode-api-key                   # OpenCode AI API key
 LITELLM_MASTER_KEY=sk-your-master-key                    # Proxy admin key (must start with "sk-")
 PRIVATE_API_KEY=your-private-api-key                     # Private Claude API key
 PRIVATE_API_PROXY_URL=your-private-api-proxy-url         # Private Claude API proxy URL
+GEMINI_API_KEY=your-google-api-key                       # Google API Key
 UI_USERNAME=admin                                        # Admin UI username
 UI_PASSWORD=your-strong-password                         # Admin UI password
 DATABASE_URL=postgresql://user:password@host:port/dbname # PostgreSQL connection string

@@ -11,6 +11,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
       - OPENCODE_API_KEY=${OPENCODE_API_KEY}
       - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
       - PRIVATE_API_KEY=${PRIVATE_API_KEY}

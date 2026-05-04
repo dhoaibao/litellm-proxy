@@ -1,4 +1,29 @@
 model_list:
+  # --- Google AI Studio ---
+  - model_name: gemini/gemini-3-flash-preview
+    litellm_params:
+      model: gemini/gemini-3-flash-preview
+      api_key: os.environ/GEMINI_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: gemini/gemma-4-26b-a4b-it
+    litellm_params:
+      model: gemini/gemma-4-26b-a4b-it
+      api_key: os.environ/GEMINI_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
+
+  - model_name: gemini/gemma-4-31b-it
+    litellm_params:
+      model: gemini/gemma-4-31b-it
+      api_key: os.environ/GEMINI_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   # --- GitHub Copilot ---
   - model_name: github_copilot/gemini-3.1-pro-preview
     litellm_params:
