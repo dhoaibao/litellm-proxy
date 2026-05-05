@@ -242,14 +242,16 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: github_copilot/gemini-3.1-pro-preview
+      model: anthropic/gpt-5.4
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
         - location: message
           role: system
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/kimi-k2.6
+      model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
