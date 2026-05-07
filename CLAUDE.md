@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, GitHub Copilot, OpenCode AI, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
+This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, GitHub Copilot, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
 
 ## Key Files
 
@@ -18,7 +18,6 @@ This repo contains the **LiteLLM Proxy configuration** for routing LLM requests 
 ## Environment Variables
 
 ```bash
-OPENCODE_API_KEY                    # OpenCode AI API key
 LITELLM_MASTER_KEY                  # Proxy admin key (must start with "sk-")
 PRIVATE_API_KEY                     # Private Claude API key
 PRIVATE_API_PROXY_URL               # Private Claude API proxy URL
@@ -70,4 +69,4 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 3. `git pull` + `docker compose pull` + `docker compose up -d`
 4. `docker image prune -f`
 
-Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, OPENCODE_API_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, UI_USERNAME, UI_PASSWORD, DATABASE_URL)
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, UI_USERNAME, UI_PASSWORD, DATABASE_URL)
