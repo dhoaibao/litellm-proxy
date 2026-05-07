@@ -47,7 +47,7 @@ jobs:
           GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
           UI_USERNAME=${{ secrets.UI_USERNAME }}
           UI_PASSWORD=${{ secrets.UI_PASSWORD }}
-          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          LITELLM_DB_PASSWORD=${{ secrets.LITELLM_DB_PASSWORD }}
           ENDFILE
 
           git pull origin main

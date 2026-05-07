@@ -24,7 +24,7 @@ PRIVATE_API_PROXY_URL               # Private Claude API proxy URL
 GEMINI_API_KEY                      # Google API Key
 UI_USERNAME                         # Admin UI username
 UI_PASSWORD                         # Admin UI password
-DATABASE_URL                        # PostgreSQL connection string
+LITELLM_DB_PASSWORD                 # PostgreSQL password for the bundled DB service
 ```
 
 ## Admin UI
@@ -33,7 +33,7 @@ Access at `http://localhost:4000/ui` (or `http://your-server:4000/ui` on Hetzner
 
 Login with `UI_USERNAME` / `UI_PASSWORD` from `.env`.
 
-Requires PostgreSQL (`DATABASE_URL` via `LITELLM_DB_PASSWORD`).
+Requires PostgreSQL — provided by the bundled `postgres` service in `docker-compose.yml` (password via `LITELLM_DB_PASSWORD`).
 
 ## Reliability
 
@@ -69,4 +69,4 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 3. `git pull` + `docker compose pull` + `docker compose up -d`
 4. `docker image prune -f`
 
-Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, UI_USERNAME, UI_PASSWORD, DATABASE_URL)
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD)
