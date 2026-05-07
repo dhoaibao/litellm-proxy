@@ -1,4 +1,14 @@
 model_list:
+  # --- Kimi Code ---
+  - model_name: kimi-for-coding
+    litellm_params:
+      model: anthropic/kimi-for-coding
+      api_base: https://api.kimi.com/coding/
+      api_key: os.environ/KIMI_CODE_API_KEY
+      cache_control_injection_points:
+        - location: message
+          role: system
+
   # --- Google AI Studio ---
   - model_name: gemini/gemini-3-flash-preview
     litellm_params:
@@ -150,7 +160,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/gpt-5.4
+      model: anthropic/claude-opus-4-7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -159,16 +169,16 @@ model_list:
 
   - model_name: claude-sonnet-4-6
     litellm_params:
-      model: anthropic/claude-sonnet-4-6
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
+      model: anthropic/kimi-for-coding
+      api_key: os.environ/KIMI_CODE_API_KEY
+      api_base: https://api.kimi.com/coding/
       cache_control_injection_points:
         - location: message
           role: system
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/gpt-5.3-codex
+      model: anthropic/kimi-k2.6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -190,13 +200,13 @@ litellm_settings:
 router_settings:
   routing_strategy: simple-shuffle
   fallbacks:
-    - "claude-opus-4-7": ["private/claude-sonnet-4-6"]
-    - "claude-sonnet-4-6": ["private/claude-sonnet-4-6"]
-    - "claude-haiku-4-5-20251001": ["private/claude-sonnet-4-6"]
+    - "claude-opus-4-7": ["private/minimax-m2.7"]
+    - "claude-sonnet-4-6": ["private/minimax-m2.7"]
+    - "claude-haiku-4-5-20251001": ["private/minimax-m2.7"]
   context_window_fallbacks:
-    - "claude-opus-4-7": ["private/claude-sonnet-4-6"]
-    - "claude-sonnet-4-6": ["private/claude-sonnet-4-6"]
-    - "claude-haiku-4-5-20251001": ["private/claude-sonnet-4-6"]
+    - "claude-opus-4-7": ["private/minimax-m2.7"]
+    - "claude-sonnet-4-6": ["private/minimax-m2.7"]
+    - "claude-haiku-4-5-20251001": ["private/minimax-m2.7"]
   default_fallbacks: ["private/minimax-m2.7"]
 
 general_settings:

@@ -45,6 +45,7 @@ jobs:
           PRIVATE_API_PROXY_URL=${{ secrets.PRIVATE_API_PROXY_URL }}
           PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }}
           GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
+          KIMI_CODE_API_KEY=${{ secrets.KIMI_CODE_API_KEY }}
           UI_USERNAME=${{ secrets.UI_USERNAME }}
           UI_PASSWORD=${{ secrets.UI_PASSWORD }}
           LITELLM_DB_PASSWORD=${{ secrets.LITELLM_DB_PASSWORD }}
