@@ -12,7 +12,7 @@ on:
 
 jobs:
   deploy:
-    if: true
+    if: false
     name: Deploy LiteLLM Proxy
     runs-on: ubuntu-latest
     environment: Hetzner

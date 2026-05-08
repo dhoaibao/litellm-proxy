@@ -83,26 +83,8 @@ model_list:
       cache_control_injection_points:
         - location: message
           role: system
-  
+
   # --- Private Proxy ---
-  - model_name: private/minimax-m2.7
-    litellm_params:
-      model: anthropic/minimax-m2.7
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: private/kimi-k2.6
-    litellm_params:
-      model: anthropic/kimi-k2.6
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
-
   - model_name: private/gpt-5.4
     litellm_params:
       model: anthropic/gpt-5.4
@@ -115,15 +97,6 @@ model_list:
   - model_name: private/gpt-5.5
     litellm_params:
       model: anthropic/gpt-5.5
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: private/gpt-5.3-codex
-    litellm_params:
-      model: anthropic/gpt-5.3-codex
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -160,7 +133,7 @@ model_list:
   # --- Aliases ---
   - model_name: claude-opus-4-7
     litellm_params:
-      model: anthropic/claude-opus-4-7
+      model: anthropic/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
       cache_control_injection_points:
@@ -178,9 +151,7 @@ model_list:
 
   - model_name: claude-haiku-4-5-20251001
     litellm_params:
-      model: anthropic/kimi-k2.6
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
+      model: github_copilot/claude-haiku-4.5
       cache_control_injection_points:
         - location: message
           role: system
@@ -188,7 +159,7 @@ model_list:
 litellm_settings:
   drop_params: true
   num_retries: 3
-  request_timeout: 60
+  request_timeout: 120
   allowed_fails: 3
   set_verbose: false
   json_logs: true
@@ -196,18 +167,12 @@ litellm_settings:
   cache_params:
     type: local
     ttl: 3600
+  stream: true
 
 router_settings:
-  routing_strategy: simple-shuffle
-  fallbacks:
-    - "claude-opus-4-7": ["private/minimax-m2.7"]
-    - "claude-sonnet-4-6": ["private/minimax-m2.7"]
-    - "claude-haiku-4-5-20251001": ["private/minimax-m2.7"]
-  context_window_fallbacks:
-    - "claude-opus-4-7": ["private/minimax-m2.7"]
-    - "claude-sonnet-4-6": ["private/minimax-m2.7"]
-    - "claude-haiku-4-5-20251001": ["private/minimax-m2.7"]
-  default_fallbacks: ["private/minimax-m2.7"]
+  routing_strategy: latency-based-routing
+  optional_pre_call_checks: ["PromptCachingDeploymentCheck"]
+  cooldown_time: 60
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
