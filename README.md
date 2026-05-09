@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, GitHub Copilot, and a private API proxy.
+Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, GitHub Copilot, Kimi Code, and a private API proxy.
 
 ## Setup
 

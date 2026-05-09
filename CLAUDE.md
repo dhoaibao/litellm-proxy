@@ -8,7 +8,7 @@ This repo contains the **LiteLLM Proxy configuration** for routing LLM requests 
 
 | File | Purpose |
 | --- | --- |
-| `config.yaml` | LiteLLM proxy routing, litellm_settings, router_settings |
+| `config.yaml` | LiteLLM proxy routing, litellm_settings, router_settings, general_settings |
 | `docker-compose.yml` | Local Docker deployment with PostgreSQL + Admin UI |
 | `.env.example` | Required environment variables template |
 | `.github/workflows/deploy.yml` | Auto-deploys to Hetzner on push to `main` |
@@ -38,7 +38,7 @@ Requires PostgreSQL — provided by the bundled `postgres` service in `docker-co
 
 ## Reliability
 
-Settings: `num_retries=3`, `request_timeout=60`, `allowed_fails=3`
+Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`
 
 ## MANDATORY: Keep Docs in Sync
 
