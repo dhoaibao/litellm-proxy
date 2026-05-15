@@ -6,8 +6,8 @@ model_list:
   # --- Kimi Code ---
   - model_name: kimi-for-coding
     litellm_params:
-      model: openai/kimi-for-coding
-      api_base: https://api.kimi.com/coding/v1
+      model: anthropic/kimi-for-coding
+      api_base: https://api.kimi.com/coding/
       api_key: os.environ/KIMI_CODE_API_KEY
 
   # --- Google AI Studio ---

@@ -123,6 +123,7 @@ Current config choices aligned with LiteLLM docs:
 - `LITELLM_NUM_WORKERS` controls LiteLLM worker count in Docker Compose. Set it to the available vCPU count for production throughput.
 - Redis starts with AOF persistence (`appendfsync everysec`), `REDIS_MAXMEMORY`, and `allkeys-lru` eviction. Cached responses and router/auth cache entries are derived data; Postgres remains the source of truth for persistent LiteLLM state.
 - Per-deployment `rpm`/`tpm` values are intentionally omitted until real provider quotas are known. Do not enable strict `enforce_model_rate_limits` without confirmed upstream limits.
+- `kimi-for-coding` uses Kimi Code's Anthropic-compatible endpoint (`https://api.kimi.com/coding/`). Kimi Code rejects generic OpenAI-compatible proxy traffic when the caller is not recognized as a supported coding agent, and Kimi's docs warn against spoofing client identity headers.
 
 ## Verification
 
