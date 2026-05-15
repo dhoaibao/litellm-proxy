@@ -50,6 +50,8 @@ jobs:
           UI_PASSWORD=${{ secrets.UI_PASSWORD }}
           LITELLM_DB_PASSWORD=${{ secrets.LITELLM_DB_PASSWORD }}
           REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
+          REDIS_MAXMEMORY=${{ vars.REDIS_MAXMEMORY || '512mb' }}
+          LITELLM_NUM_WORKERS=${{ vars.LITELLM_NUM_WORKERS || '4' }}
           ENDFILE
 
           git pull origin main

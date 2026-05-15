@@ -27,6 +27,8 @@ UI_USERNAME                         # Admin UI username
 UI_PASSWORD                         # Admin UI password
 LITELLM_DB_PASSWORD                 # PostgreSQL password for the bundled DB service
 REDIS_PASSWORD                      # Redis password for shared cache and router state
+REDIS_MAXMEMORY                     # Redis cache memory cap before allkeys-lru eviction
+LITELLM_NUM_WORKERS                 # LiteLLM worker count; set to available vCPU count
 ```
 
 ## Admin UI
@@ -39,7 +41,7 @@ Requires PostgreSQL and Redis — provided by the bundled `postgres` and `redis`
 
 ## Reliability
 
-Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, Redis-backed response cache, and Redis-backed auth cache.
+Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, `routing_strategy=simple-shuffle`, Redis-backed response cache with `REDIS_MAXMEMORY` + `allkeys-lru`, Redis-backed auth cache, conservative prompt compression, and worker count controlled by `LITELLM_NUM_WORKERS`.
 
 ## MANDATORY: Keep Docs in Sync
 
@@ -72,3 +74,5 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 4. `docker image prune -f`
 
 Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, KIMI_CODE_API_KEY, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD, REDIS_PASSWORD)
+
+Deployment variables stored in: GitHub repo Settings → Variables (`LITELLM_NUM_WORKERS`, defaults to `4` when unset; `REDIS_MAXMEMORY`, defaults to `512mb` when unset).

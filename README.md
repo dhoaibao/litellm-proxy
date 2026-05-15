@@ -25,6 +25,13 @@ LITELLM_DB_PASSWORD=your-db-password     # PostgreSQL password for the bundled D
 REDIS_PASSWORD=your-redis-password       # Redis password for shared cache and router state
 ```
 
+Optional tuning variables:
+
+```env
+LITELLM_NUM_WORKERS=4                    # Set to available vCPU count for higher throughput
+REDIS_MAXMEMORY=512mb                    # Redis memory cap before allkeys-lru eviction
+```
+
 ### 2. Launch with Docker Compose
 
 ```bash
@@ -65,38 +72,81 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 }
 ```
 
+## Performance Baseline
+
+This repo currently pins LiteLLM to `ghcr.io/berriai/litellm:main-v1.83.14-stable` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
+
+LiteLLM's published proxy benchmark reports 4-instance overhead around median `2ms`, P95 `8ms`, and P99 `13ms` at roughly `1170 RPS` against a fake endpoint. Treat those numbers as a reference target, not a guarantee for this provider mix.
+
 ## Token Optimization
 
-The proxy applies one direct token-saving layer automatically:
+The proxy applies these token-saving layers:
 
-**1. Prompt Caching (auto-injected)** — LiteLLM automatically adds `cache_control: {type: ephemeral}` to system messages. This caches the static parts of Claude Code's long system prompts (tool definitions, instructions) at the provider level, reducing input token costs by **80–90%** on repeated calls.
+**1. Prompt Caching (auto-injected)** - LiteLLM adds `cache_control: {type: ephemeral}` to configured system messages using `cache_control_injection_points`. This is intended to cache static long prompts such as Claude Code instructions and tool definitions at the provider layer.
 
-The proxy also applies two performance-focused cache layers:
+**2. Prompt Compression (server-side, conservative)** - `compression_interception` is enabled with `compression_trigger: 30000` and `compression_target: 20000`. LiteLLM applies this callback loop to Anthropic Messages-style `/v1/messages` traffic, compressing long context and injecting a retrieval tool when needed. Disable this first if long-context answer quality changes.
 
-**2. Response Cache (Redis-backed)** — Identical requests return cached responses without hitting the LLM API. This improves latency and reduces repeated upstream calls for exact request matches. This repo uses Redis-backed proxy caching with a 1-hour TTL so cache state can be shared across workers or future replicas instead of staying in one process.
+**3. Response Cache (Redis-backed)** - Identical requests return cached responses without hitting the upstream LLM API. This repo uses Redis-backed proxy caching with a 1-hour TTL and `max_connections: 100` so cache state can be shared across workers or future replicas.
 
-**3. Shared Auth Cache (Redis-backed)** — LiteLLM can mirror virtual-key auth cache entries into Redis. This reduces repeated DB reads and makes auth cache warm-up less painful if you later add more workers or replicas.
+**4. Shared Auth Cache (Redis-backed)** - LiteLLM mirrors virtual-key auth cache entries into Redis. This reduces repeated DB reads and makes auth cache warm-up less painful with multiple workers or replicas.
 
-This repo also enables provider-specific optional-parameter caching so provider-specific request knobs are included in cache-key generation when they affect the output.
+The proxy also enables provider-specific optional-parameter caching so provider-specific request knobs are included in cache-key generation when they affect the output.
 
-To verify prompt caching is working, check `cached_tokens` in the response usage:
+Prompt caching has provider minimum token thresholds and can be silently skipped below the threshold. Current documented minimums include OpenAI/Gemini at `1024` input tokens, Claude Sonnet/Opus 4.x at `2048`, and Claude Haiku 4.5+/Opus 4.5+ at `4096`.
+
+To verify prompt caching, inspect usage fields such as:
+
 ```json
 {
   "usage": {
     "prompt_tokens_details": {
       "cached_tokens": 12000
-    }
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 12000
   }
 }
 ```
 
 ## Configuration
 
-Edit `config.yaml` to update proxy routing and LiteLLM settings. This repo currently pins LiteLLM to `ghcr.io/berriai/litellm:main-v1.83.14-stable` in `docker-compose.yml`; change that tag deliberately and re-run your normal smoke tests before upgrading. See the [LiteLLM documentation](https://docs.litellm.ai/docs/proxy/configs) for full configuration options.
+Edit `config.yaml` to update proxy routing and LiteLLM settings. See the [LiteLLM documentation](https://docs.litellm.ai/docs/proxy/configs) for full configuration options.
 
 Current config choices aligned with LiteLLM docs:
 
-- `routing_strategy: simple-shuffle` for better production throughput than usage-heavy strategies.
-- Redis-backed `cache_params` instead of local-only cache so state can be shared beyond a single process.
-- `enable_redis_auth_cache: true` to reduce repeated virtual-key DB lookups.
-- Prompt-caching auto-injection kept on supported models via `cache_control_injection_points`.
+- `routing_strategy: simple-shuffle` keeps routing on the production-recommended fast path.
+- `optional_pre_call_checks: ["PromptCachingDeploymentCheck"]` keeps provider prompt-caching support checks active.
+- Redis uses `host`, `port`, and `password` fields instead of `redis_url`, matching LiteLLM production guidance.
+- Redis-backed `cache_params` stores exact response cache entries and uses `max_connections: 100` for the cache client.
+- `enable_redis_auth_cache: true` reduces repeated virtual-key DB lookups across workers.
+- `database_connection_pool_limit: 10` keeps Postgres pool sizing explicit. Total DB connections are roughly `pool_limit x workers x instances`.
+- `LITELLM_NUM_WORKERS` controls LiteLLM worker count in Docker Compose. Set it to the available vCPU count for production throughput.
+- Redis starts with AOF persistence (`appendfsync everysec`), `REDIS_MAXMEMORY`, and `allkeys-lru` eviction. Cached responses and router/auth cache entries are derived data; Postgres remains the source of truth for persistent LiteLLM state.
+- Per-deployment `rpm`/`tpm` values are intentionally omitted until real provider quotas are known. Do not enable strict `enforce_model_rate_limits` without confirmed upstream limits.
+
+## Verification
+
+Static checks:
+
+```bash
+docker compose config --no-interpolate --quiet
+python3 -c 'import yaml; yaml.safe_load(open("config.yaml", "r", encoding="utf-8")); print("config.yaml ok")'
+```
+
+Runtime smoke checks, after starting the stack:
+
+```bash
+curl http://localhost:4000/health/readiness
+curl http://localhost:4000/cache/ping -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+curl http://localhost:4000/v1/model/info -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+```
+
+For token-saving validation, send the same long system-prompt request twice and compare `cached_tokens`, `cache_creation_input_tokens`, `cache_read_input_tokens`, and `x-litellm-response-cost` between calls.
+
+## Rollback Notes
+
+If startup fails, first remove the latest `config.yaml` settings block changed and restore the previous LiteLLM command in `docker-compose.yml`.
+
+If long-context answer quality changes, remove the `compression_interception` callback while keeping prompt caching and Redis response caching enabled.
+
+If Redis latency or memory pressure increases, lower `max_connections`, lower `REDIS_MAXMEMORY`, or remove Redis command tuning before disabling LiteLLM caching entirely.

@@ -1,4 +1,8 @@
 model_list:
+  # Per-deployment rpm/tpm values are intentionally omitted until provider quotas are known.
+  # LiteLLM can use those values for routing capacity, but hard enforcement should not be
+  # enabled without confirmed limits for each upstream account.
+
   # --- Kimi Code ---
   - model_name: kimi-for-coding
     litellm_params:
@@ -146,7 +150,13 @@ litellm_settings:
     password: os.environ/REDIS_PASSWORD
     namespace: litellm:proxy:cache
     ttl: 3600
+    max_connections: 100
   enable_caching_on_provider_specific_optional_params: true
+  callbacks: ["compression_interception"]
+  compression_interception_params:
+    enabled: true
+    compression_trigger: 30000
+    compression_target: 20000
   stream: true
 
 router_settings:
@@ -156,10 +166,14 @@ router_settings:
   redis_host: os.environ/REDIS_HOST
   redis_port: os.environ/REDIS_PORT
   redis_password: os.environ/REDIS_PASSWORD
+  cache_params:
+    type: redis
+    max_connections: 100
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   proxy_batch_write_at: 60
+  database_connection_pool_limit: 10
   user_api_key_cache_ttl: 300
   disable_error_logs: true
   allow_requests_on_db_unavailable: true
