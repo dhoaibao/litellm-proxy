@@ -73,30 +73,21 @@ model_list:
 
   - model_name: private/claude-opus-4-7
     litellm_params:
-      model: anthropic/claude-opus-4-7
+      model: openai/claude-opus-4-7
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
 
   - model_name: private/claude-opus-4-6
     litellm_params:
-      model: anthropic/claude-opus-4-6
+      model: openai/claude-opus-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
 
   - model_name: private/claude-sonnet-4-6
     litellm_params:
-      model: anthropic/claude-sonnet-4-6
+      model: openai/claude-sonnet-4-6
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
 
 litellm_settings:
   drop_params: true
