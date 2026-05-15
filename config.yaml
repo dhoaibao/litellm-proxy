@@ -130,32 +130,6 @@ model_list:
         - location: message
           role: system
 
-  # --- Aliases ---
-  - model_name: claude-opus-4-7
-    litellm_params:
-      model: anthropic/claude-gpt-5-4
-      api_base: os.environ/PRIVATE_API_PROXY_URL
-      api_key: os.environ/PRIVATE_API_KEY
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: claude-sonnet-4-6
-    litellm_params:
-      model: anthropic/kimi-for-coding
-      api_key: os.environ/KIMI_CODE_API_KEY
-      api_base: https://api.kimi.com/coding/
-      cache_control_injection_points:
-        - location: message
-          role: system
-
-  - model_name: claude-haiku-4-5-20251001
-    litellm_params:
-      model: github_copilot/claude-haiku-4.5
-      cache_control_injection_points:
-        - location: message
-          role: system
-
 litellm_settings:
   drop_params: true
   num_retries: 3
@@ -164,15 +138,24 @@ litellm_settings:
   set_verbose: false
   json_logs: true
   cache: true
+  enable_redis_auth_cache: true
   cache_params:
-    type: local
+    type: redis
+    host: os.environ/REDIS_HOST
+    port: os.environ/REDIS_PORT
+    password: os.environ/REDIS_PASSWORD
+    namespace: litellm:proxy:cache
     ttl: 3600
+  enable_caching_on_provider_specific_optional_params: true
   stream: true
 
 router_settings:
-  routing_strategy: latency-based-routing
+  routing_strategy: simple-shuffle
   optional_pre_call_checks: ["PromptCachingDeploymentCheck"]
   cooldown_time: 60
+  redis_host: os.environ/REDIS_HOST
+  redis_port: os.environ/REDIS_PORT
+  redis_password: os.environ/REDIS_PASSWORD
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

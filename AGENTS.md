@@ -2,14 +2,14 @@
 
 ## Project Overview
 
-This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, GitHub Copilot, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
+This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, GitHub Copilot, Kimi Code, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
 
 ## Key Files
 
 | File | Purpose |
 | --- | --- |
 | `config.yaml` | LiteLLM proxy routing, litellm_settings, router_settings, general_settings |
-| `docker-compose.yml` | Local Docker deployment with PostgreSQL + Admin UI |
+| `docker-compose.yml` | Local Docker deployment with PostgreSQL, Redis, and Admin UI |
 | `.env.example` | Required environment variables template |
 | `.github/workflows/deploy.yml` | Auto-deploys to Hetzner on push to `main` |
 | `README.md` | User-facing documentation |
@@ -26,6 +26,7 @@ KIMI_CODE_API_KEY                   # Kimi Code API key
 UI_USERNAME                         # Admin UI username
 UI_PASSWORD                         # Admin UI password
 LITELLM_DB_PASSWORD                 # PostgreSQL password for the bundled DB service
+REDIS_PASSWORD                      # Redis password for shared cache and router state
 ```
 
 ## Admin UI
@@ -34,11 +35,11 @@ Access at `http://localhost:4000/ui` (or `http://your-server:4000/ui` on Hetzner
 
 Login with `UI_USERNAME` / `UI_PASSWORD` from `.env`.
 
-Requires PostgreSQL — provided by the bundled `postgres` service in `docker-compose.yml` (password via `LITELLM_DB_PASSWORD`).
+Requires PostgreSQL and Redis — provided by the bundled `postgres` and `redis` services in `docker-compose.yml` (passwords via `LITELLM_DB_PASSWORD` and `REDIS_PASSWORD`).
 
 ## Reliability
 
-Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`
+Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, Redis-backed response cache, and Redis-backed auth cache.
 
 ## MANDATORY: Keep Docs in Sync
 
@@ -47,8 +48,8 @@ Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`
 | If you change... | You **must** also update... |
 | --- | --- |
 | `litellm_settings`, `router_settings`, routing configuration | `README.md` (configuration notes, env vars) |
-| New environment variable | `README.md`, `.env.example`, `docker-compose.yml`, `deploy.yml`, `CLAUDE.md` |
-| Deploy pipeline | `CLAUDE.md` (CI/CD section) |
+| New environment variable | `README.md`, `.env.example`, `docker-compose.yml`, `deploy.yml`, `AGENTS.md` |
+| Deploy pipeline | `AGENTS.md` (CI/CD section) |
 | Any file in this list | Re-check all others for consistency |
 
 Do not leave docs stale. Out-of-sync documentation is a bug.
@@ -70,4 +71,4 @@ Push to `main` (when `config.yaml`, `docker-compose.yml`, or `deploy.yml` change
 3. `git pull` + `docker compose pull` + `docker compose up -d`
 4. `docker image prune -f`
 
-Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, KIMI_CODE_API_KEY, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD)
+Secrets stored in: GitHub repo Settings → Secrets (SSH_KEY, SSH_HOST, SSH_PORT, SSH_USER, DEPLOY_PATH, LITELLM_MASTER_KEY, PRIVATE_API_KEY, PRIVATE_API_PROXY_URL, GEMINI_API_KEY, KIMI_CODE_API_KEY, UI_USERNAME, UI_PASSWORD, LITELLM_DB_PASSWORD, REDIS_PASSWORD)

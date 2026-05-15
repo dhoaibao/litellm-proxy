@@ -49,6 +49,7 @@ jobs:
           UI_USERNAME=${{ secrets.UI_USERNAME }}
           UI_PASSWORD=${{ secrets.UI_PASSWORD }}
           LITELLM_DB_PASSWORD=${{ secrets.LITELLM_DB_PASSWORD }}
+          REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
           ENDFILE
 
           git pull origin main
