@@ -108,6 +108,12 @@ model_list:
       api_base: os.environ/PRIVATE_API_PROXY_URL
       api_key: os.environ/PRIVATE_API_KEY
 
+  - model_name: private/minimax-m2.7
+    litellm_params:
+      model: openai/minimax-m2.7
+      api_base: os.environ/PRIVATE_API_PROXY_URL
+      api_key: os.environ/PRIVATE_API_KEY
+
 litellm_settings:
   drop_params: true
   num_retries: 3
