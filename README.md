@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, GitHub Copilot, Kimi Code, and a private API proxy.
+Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, ChatGPT subscription, GitHub Copilot, Kimi Code, and a private API proxy.
 
 ## Setup
 
@@ -47,6 +47,12 @@ LiteLLM stores GitHub Copilot auth state under its local config directory. This 
 
 If LiteLLM prompts for GitHub Copilot authentication in the container logs, complete the sign-in flow once and keep the `github_copilot_auth` volume intact across restarts.
 
+## ChatGPT Subscription Auth Persistence
+
+LiteLLM supports ChatGPT Pro/Max subscription models through the `chatgpt/` provider route using an OAuth device-code flow. These models do not use an API key in `config.yaml`; LiteLLM prompts with a verification URL and device code on first use.
+
+This repo sets `CHATGPT_TOKEN_DIR=/root/.config/litellm/chatgpt` and persists that directory in the Docker volume `chatgpt_auth`, so a normal container restart should not require re-authenticating ChatGPT. If LiteLLM prompts for ChatGPT authentication in the container logs, complete the sign-in flow once and keep the `chatgpt_auth` volume intact across restarts.
+
 ## Admin UI
 
 Access at `http://localhost:4000/ui`.
@@ -74,7 +80,7 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 
 ## Performance Baseline
 
-This repo currently pins LiteLLM to `ghcr.io/berriai/litellm:main-v1.83.14-stable` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
+This repo currently pins LiteLLM to `ghcr.io/berriai/litellm:v1.85.0-rc.2` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
 
 LiteLLM's published proxy benchmark reports 4-instance overhead around median `2ms`, P95 `8ms`, and P99 `13ms` at roughly `1170 RPS` against a fake endpoint. Treat those numbers as a reference target, not a guarantee for this provider mix.
 
@@ -123,6 +129,8 @@ Current config choices aligned with LiteLLM docs:
 - `LITELLM_NUM_WORKERS` controls LiteLLM worker count in Docker Compose. Set it to the available vCPU count for production throughput.
 - Redis starts with AOF persistence (`appendfsync everysec`), `REDIS_MAXMEMORY`, and `allkeys-lru` eviction. Cached responses and router/auth cache entries are derived data; Postgres remains the source of truth for persistent LiteLLM state.
 - Per-deployment `rpm`/`tpm` values are intentionally omitted until real provider quotas are known. Do not enable strict `enforce_model_rate_limits` without confirmed upstream limits.
+- ChatGPT subscription models use LiteLLM's `chatgpt/` provider route with `model_info.mode: responses`. `/v1/chat/completions` requests are bridged to Responses for supported models.
+- The configured ChatGPT subscription models are `chatgpt/gpt-5.5`, `chatgpt/gpt-5.4`, and `chatgpt/gpt-5.3-codex`.
 - `kimi-for-coding` uses Kimi Code's Anthropic-compatible endpoint (`https://api.kimi.com/coding/`). Kimi Code rejects generic OpenAI-compatible proxy traffic when the caller is not recognized as a supported coding agent, and Kimi's docs warn against spoofing client identity headers.
 
 ## Verification

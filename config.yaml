@@ -29,6 +29,25 @@ model_list:
       model: gemini/gemma-4-31b-it
       api_key: os.environ/GEMINI_API_KEY
 
+  # --- ChatGPT Subscription ---
+  - model_name: chatgpt/gpt-5.5
+    model_info:
+      mode: responses
+    litellm_params:
+      model: chatgpt/gpt-5.5
+
+  - model_name: chatgpt/gpt-5.4
+    model_info:
+      mode: responses
+    litellm_params:
+      model: chatgpt/gpt-5.4
+
+  - model_name: chatgpt/gpt-5.3-codex
+    model_info:
+      mode: responses
+    litellm_params:
+      model: chatgpt/gpt-5.3-codex
+
   # --- GitHub Copilot ---
   - model_name: github_copilot/gemini-3.1-pro-preview
     litellm_params:

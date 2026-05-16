@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, GitHub Copilot, Kimi Code, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
+This repo contains the **LiteLLM Proxy configuration** for routing LLM requests across multiple providers (Google AI Studio, ChatGPT subscription, GitHub Copilot, Kimi Code, Private API Proxy). It is a **config-only** repo — no application code, no tests, no build step.
 
 ## Key Files
 
@@ -41,7 +41,7 @@ Requires PostgreSQL and Redis — provided by the bundled `postgres` and `redis`
 
 ## Reliability
 
-Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, `routing_strategy=simple-shuffle`, Redis-backed response cache with `REDIS_MAXMEMORY` + `allkeys-lru`, Redis-backed auth cache, conservative prompt compression, and worker count controlled by `LITELLM_NUM_WORKERS`.
+Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, `routing_strategy=simple-shuffle`, Redis-backed response cache with `REDIS_MAXMEMORY` + `allkeys-lru`, Redis-backed auth cache, conservative prompt compression, worker count controlled by `LITELLM_NUM_WORKERS`, and ChatGPT subscription OAuth tokens persisted via the `chatgpt_auth` Docker volume.
 
 ## MANDATORY: Keep Docs in Sync
 

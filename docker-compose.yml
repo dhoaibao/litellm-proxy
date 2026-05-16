@@ -42,7 +42,7 @@ services:
       start_period: 10s
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.83.14-stable
+    image: ghcr.io/berriai/litellm:main-latest
     container_name: litellm
     restart: unless-stopped
     ports:
@@ -50,6 +50,7 @@ services:
     volumes:
       - ./config.yaml:/app/config.yaml
       - github_copilot_auth:/root/.config/litellm/github_copilot
+      - chatgpt_auth:/root/.config/litellm/chatgpt
     command:
       - --config
       - /app/config.yaml
@@ -77,6 +78,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD is required}
       - LITELLM_NUM_WORKERS=${LITELLM_NUM_WORKERS:-4}
+      - CHATGPT_TOKEN_DIR=/root/.config/litellm/chatgpt
       - STORE_MODEL_IN_DB=true
       - LITELLM_MODE=PRODUCTION
       - LITELLM_LOG=ERROR
@@ -85,3 +87,4 @@ volumes:
   postgres_data:
   redis_data:
   github_copilot_auth:
+  chatgpt_auth:
