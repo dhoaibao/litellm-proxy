@@ -80,7 +80,7 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 
 ## Performance Baseline
 
-This repo currently pins LiteLLM to `ghcr.io/berriai/litellm:v1.85.0-rc.2` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
+This repo currently pins LiteLLM to `main-stable` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
 
 LiteLLM's published proxy benchmark reports 4-instance overhead around median `2ms`, P95 `8ms`, and P99 `13ms` at roughly `1170 RPS` against a fake endpoint. Treat those numbers as a reference target, not a guarantee for this provider mix.
 
