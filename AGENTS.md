@@ -29,6 +29,7 @@ LITELLM_DB_PASSWORD                 # PostgreSQL password for the bundled DB ser
 REDIS_PASSWORD                      # Redis password for shared cache and router state
 REDIS_MAXMEMORY                     # Redis cache memory cap before allkeys-lru eviction
 LITELLM_NUM_WORKERS                 # LiteLLM worker count; set to available vCPU count
+USE_PRISMA_MIGRATE                  # Use prisma migrate deploy for production migrations
 ```
 
 ## Admin UI

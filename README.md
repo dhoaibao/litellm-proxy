@@ -23,6 +23,7 @@ UI_USERNAME=admin                        # Admin UI username
 UI_PASSWORD=your-strong-password         # Admin UI password
 LITELLM_DB_PASSWORD=your-db-password     # PostgreSQL password for the bundled DB
 REDIS_PASSWORD=your-redis-password       # Redis password for shared cache and router state
+USE_PRISMA_MIGRATE=True                  # Use prisma migrate deploy for production migrations
 ```
 
 Optional tuning variables:

@@ -82,6 +82,7 @@ services:
       - STORE_MODEL_IN_DB=true
       - LITELLM_MODE=PRODUCTION
       - LITELLM_LOG=ERROR
+      - USE_PRISMA_MIGRATE=True
 
 volumes:
   postgres_data:
