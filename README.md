@@ -21,7 +21,6 @@ UI_USERNAME=admin                        # Admin UI username
 UI_PASSWORD=your-strong-password         # Admin UI password
 LITELLM_DB_PASSWORD=your-db-password     # PostgreSQL password for the bundled DB
 REDIS_PASSWORD=your-redis-password       # Redis password for shared cache and router state
-USE_PRISMA_MIGRATE=True                  # Use prisma migrate deploy for production migrations
 ```
 
 Optional tuning variables:
@@ -79,7 +78,7 @@ Add to `~/.claude/settings.json` (global) or `.claude/settings.json` (per-projec
 
 ## Performance Baseline
 
-This repo currently pins LiteLLM to `main-stable` in `docker-compose.yml`. Upgrade this tag deliberately and re-run the smoke checks below before deploying.
+This repo currently uses LiteLLM `latest` in `docker-compose.yml`. This tracks LiteLLM's newest stable release, so re-run the smoke checks below before deploying upgrades.
 
 LiteLLM's published proxy benchmark reports 4-instance overhead around median `2ms`, P95 `8ms`, and P99 `13ms` at roughly `1170 RPS` against a fake endpoint. Treat those numbers as a reference target, not a guarantee for this provider mix.
 
@@ -121,10 +120,12 @@ Current config choices aligned with LiteLLM docs:
 
 - `routing_strategy: simple-shuffle` keeps routing on the production-recommended fast path.
 - `optional_pre_call_checks: ["PromptCachingDeploymentCheck"]` keeps provider prompt-caching support checks active.
+- `allowed_fails` and `cooldown_time` live under `router_settings`, matching LiteLLM's router configuration docs.
 - Redis uses `host`, `port`, and `password` fields instead of `redis_url`, matching LiteLLM production guidance.
 - Redis-backed `cache_params` stores exact response cache entries and uses `max_connections: 100` for the cache client.
 - `enable_redis_auth_cache: true` reduces repeated virtual-key DB lookups across workers.
 - `database_connection_pool_limit: 10` keeps Postgres pool sizing explicit. Total DB connections are roughly `pool_limit x workers x instances`.
+- `allow_requests_on_db_unavailable` is intentionally not enabled. LiteLLM only recommends it when the proxy and database live on a private VPC-style network and availability matters more than enforcing DB-backed controls during outages.
 - `LITELLM_NUM_WORKERS` controls LiteLLM worker count in Docker Compose. Set it to the available vCPU count for production throughput.
 - Redis starts with AOF persistence (`appendfsync everysec`), `REDIS_MAXMEMORY`, and `allkeys-lru` eviction. Cached responses and router/auth cache entries are derived data; Postgres remains the source of truth for persistent LiteLLM state.
 - Per-deployment `rpm`/`tpm` values are intentionally omitted until real provider quotas are known. Do not enable strict `enforce_model_rate_limits` without confirmed upstream limits.
@@ -153,7 +154,7 @@ For token-saving validation, send the same long system-prompt request twice and 
 
 ## Rollback Notes
 
-If startup fails, first remove the latest `config.yaml` settings block changed and restore the previous LiteLLM command in `docker-compose.yml`.
+If startup fails, first roll back the latest `config.yaml` settings block changed and restore the previous LiteLLM image tag in `docker-compose.yml`.
 
 If long-context answer quality changes, remove the `compression_interception` callback while keeping prompt caching and Redis response caching enabled.
 

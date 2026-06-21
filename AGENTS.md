@@ -27,7 +27,6 @@ LITELLM_DB_PASSWORD                 # PostgreSQL password for the bundled DB ser
 REDIS_PASSWORD                      # Redis password for shared cache and router state
 REDIS_MAXMEMORY                     # Redis cache memory cap before allkeys-lru eviction
 LITELLM_NUM_WORKERS                 # LiteLLM worker count; set to available vCPU count
-USE_PRISMA_MIGRATE                  # Use prisma migrate deploy for production migrations
 ```
 
 ## Admin UI
@@ -40,7 +39,7 @@ Requires PostgreSQL and Redis — provided by the bundled `postgres` and `redis`
 
 ## Reliability
 
-Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, `routing_strategy=simple-shuffle`, Redis-backed response cache with `REDIS_MAXMEMORY` + `allkeys-lru`, Redis-backed auth cache, conservative prompt compression, worker count controlled by `LITELLM_NUM_WORKERS`, and ChatGPT subscription OAuth tokens persisted via the `chatgpt_auth` Docker volume.
+Settings: `num_retries=3`, `request_timeout=120`, `allowed_fails=3`, `routing_strategy=simple-shuffle`, Redis-backed response cache with `REDIS_MAXMEMORY` + `allkeys-lru`, Redis-backed auth cache, conservative prompt compression, worker count controlled by `LITELLM_NUM_WORKERS`, the `latest` LiteLLM image tag, and ChatGPT subscription OAuth tokens persisted via the `chatgpt_auth` Docker volume.
 
 ## MANDATORY: Keep Docs in Sync
 

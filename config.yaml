@@ -81,7 +81,6 @@ litellm_settings:
   drop_params: true
   num_retries: 3
   request_timeout: 120
-  allowed_fails: 3
   set_verbose: false
   json_logs: true
   cache: true
@@ -100,18 +99,15 @@ litellm_settings:
     enabled: true
     compression_trigger: 30000
     compression_target: 20000
-  stream: true
 
 router_settings:
   routing_strategy: simple-shuffle
   optional_pre_call_checks: ["PromptCachingDeploymentCheck"]
+  allowed_fails: 3
   cooldown_time: 60
   redis_host: os.environ/REDIS_HOST
   redis_port: os.environ/REDIS_PORT
   redis_password: os.environ/REDIS_PASSWORD
-  cache_params:
-    type: redis
-    max_connections: 100
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
@@ -119,4 +115,3 @@ general_settings:
   database_connection_pool_limit: 10
   user_api_key_cache_ttl: 300
   disable_error_logs: true
-  allow_requests_on_db_unavailable: true
