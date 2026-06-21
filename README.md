@@ -1,6 +1,6 @@
 # LiteLLM Proxy
 
-Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, ChatGPT subscription, GitHub Copilot, Kimi Code, and a private API proxy.
+Proxy server for routing AI requests through [LiteLLM](https://docs.litellm.ai), backed by Google AI Studio, ChatGPT subscription, GitHub Copilot, and Kimi Code.
 
 ## Setup
 
@@ -15,8 +15,6 @@ Required variables:
 
 ```env
 LITELLM_MASTER_KEY=sk-your-master-key     # Proxy admin key (must start with "sk-")
-PRIVATE_API_KEY=your-private-api-key     # Private Claude API key
-PRIVATE_API_PROXY_URL=your-proxy-url     # Private Claude API proxy URL
 GEMINI_API_KEY=your-google-api-key       # Google API Key
 KIMI_CODE_API_KEY=your-kimi-code-key     # Kimi Code API key
 UI_USERNAME=admin                        # Admin UI username
