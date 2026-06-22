@@ -53,30 +53,6 @@ model_list:
     litellm_params:
       model: github_copilot/gemini-3.1-pro-preview
 
-  - model_name: github_copilot/gemini-3-flash-preview
-    litellm_params:
-      model: github_copilot/gemini-3-flash-preview
-
-  - model_name: github_copilot/gpt-5.4-mini
-    litellm_params:
-      model: github_copilot/gpt-5.4-mini
-
-  - model_name: github_copilot/claude-haiku-4.5
-    litellm_params:
-      model: github_copilot/claude-haiku-4.5
-
-  - model_name: github_copilot/gpt-5-mini
-    litellm_params:
-      model: github_copilot/gpt-5-mini
-
-  - model_name: github_copilot/gpt-4.1
-    litellm_params:
-      model: github_copilot/gpt-4.1
-
-  - model_name: github_copilot/gpt-4o
-    litellm_params:
-      model: github_copilot/gpt-4o
-
 litellm_settings:
   drop_params: true
   num_retries: 3
